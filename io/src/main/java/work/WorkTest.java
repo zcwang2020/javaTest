@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.junit.platform.commons.util.CollectionUtils;
 
+import util.BeanUtil;
+
 /**
  * @Author Tmind
  * @Date 2021/11/5
@@ -64,5 +66,10 @@ public class WorkTest {
             weiInfoList.add(weiInfo);
         }
         System.out.println(weiInfoList);
+
+        Person person = new Person();
+        person.setType(2);
+        Wei copy = BeanUtil.copy(person, Wei.class);
+        System.out.println(copy.getType());
     }
 }

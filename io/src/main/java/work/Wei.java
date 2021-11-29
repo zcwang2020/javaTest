@@ -12,12 +12,16 @@ import java.util.Objects;
  * @Author Tmind
  * @Date 2021/11/5
  */
-public class Wei {
+public class Wei extends Person{
     private String name;
     private Integer age;
     private Integer account;
 
+    public Wei() {
+    }
+
     public Wei(String name, Integer age, Integer account) {
+        super();
         this.name = name;
         this.age = age;
         this.account = account;
@@ -58,13 +62,5 @@ public class Wei {
     @Override
     public int hashCode() {
         return Objects.hash(name, age);
-    }
-
-    @Override
-    public String toString() {
-        return "Wei{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
     }
 }
