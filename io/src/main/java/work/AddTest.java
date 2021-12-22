@@ -32,7 +32,6 @@ public class AddTest {
         String s = "1311_00000001";
         System.out.println(s.length());
 
-        List<Integer> i -
     }
 
 }
