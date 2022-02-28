@@ -32,6 +32,12 @@
             <artifactId>spring-beans</artifactId>
             <version>3.2.1.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.60.sec10</version>
+        </dependency>
     </dependencies>
 
 </project>

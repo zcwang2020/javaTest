@@ -63,4 +63,13 @@ public class Wei extends Person{
     public int hashCode() {
         return Objects.hash(name, age);
     }
+
+    @Override
+    public String toString() {
+        return "Wei{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", account=" + account +
+                '}';
+    }
 }
