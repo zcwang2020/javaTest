@@ -37,6 +37,8 @@ public class DateUtils {
 
     public static final long TIME_OF_DAY = 86400000L;
 
+    public static final long TIME_OF_WEEK = 604800000L;
+
     /**
      * 获取当前的时间
      */
@@ -62,6 +64,17 @@ public class DateUtils {
         }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
+    }
+
+    /**
+     * 获取前一天的日期字符串
+     * @return
+     */
+    public static String lastDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date time = calendar.getTime();
+        return parseDateToString(time, DATEFORMAT);
     }
 
     /**
@@ -178,6 +191,21 @@ public class DateUtils {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    /**
+     * 获取某天的结束时间戳，xxxx-xx-xx 23：59：59
+     *
+     * @param date
+     *            日期
+     */
+    public static Long getEndTimeInMillis(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
         return calendar.getTimeInMillis();
     }
 
@@ -392,6 +420,7 @@ public class DateUtils {
     public static long getStartTimeOfWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -436,6 +465,23 @@ public class DateUtils {
         c.set(Calendar.MILLISECOND, 0);
         c.add(Calendar.MINUTE, mins);
         return c.getTimeInMillis();
+    }
+
+    public static Date getThisWeekMonday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        return cal.getTime();
     }
 
     public static void main(String[] args) {

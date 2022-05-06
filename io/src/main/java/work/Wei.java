@@ -6,6 +6,8 @@
  */
 package work;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,6 +19,10 @@ public class Wei extends Person{
     private Integer age;
     private Integer account;
 
+    private List<String> card;
+
+    private BigDecimal money;
+
     public Wei() {
     }
 
@@ -25,6 +31,46 @@ public class Wei extends Person{
         this.name = name;
         this.age = age;
         this.account = account;
+    }
+
+    public Wei(Integer type, String name, Integer age, Integer account, BigDecimal money) {
+        super(type);
+        this.name = name;
+        this.age = age;
+        this.account = account;
+        this.money = money;
+    }
+
+    public Wei(String name, Integer age, Integer account, BigDecimal money) {
+        this.name = name;
+        this.age = age;
+        this.account = account;
+        this.money = money;
+    }
+
+    public Wei(Integer type, String name, Integer age, Integer account, List<String> card, BigDecimal money) {
+        super(type);
+        this.name = name;
+        this.age = age;
+        this.account = account;
+        this.card = card;
+        this.money = money;
+    }
+
+    public Wei(String name, Integer age, Integer account, List<String> card, BigDecimal money) {
+        this.name = name;
+        this.age = age;
+        this.account = account;
+        this.card = card;
+        this.money = money;
+    }
+
+    public List<String> getCard() {
+        return card;
+    }
+
+    public void setCard(List<String> card) {
+        this.card = card;
     }
 
     public String getName() {
@@ -51,6 +97,14 @@ public class Wei extends Person{
         this.account = account;
     }
 
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,6 +124,8 @@ public class Wei extends Person{
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", account=" + account +
+                ", card=" + card +
+                ", money=" + money +
                 '}';
     }
 }

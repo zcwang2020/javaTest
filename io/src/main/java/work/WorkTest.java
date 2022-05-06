@@ -1,5 +1,6 @@
 package work;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 
 import util.BeanUtil;
+import util.DateUtils;
 
 /**
  * @Author Tmind
@@ -22,6 +25,13 @@ import util.BeanUtil;
  */
 public class WorkTest {
     public static void main(String[] args) {
+        Wei wei = new Wei();
+        List<String> list1 = new ArrayList<>();
+        wei.setCard(list1);
+        list1.add("a");
+        System.out.println(wei);
+        System.out.println(DateUtils.parseStringToLong("2022-04-11", DateUtils.DATE_FORMAT));
+
         //        String name = "恶魔\uD83D\uDE04";
         //        String name = "te)stsda";
         //        System.out.println(encodeNickName(name, 1));
@@ -57,19 +67,49 @@ public class WorkTest {
         System.out.println("---------------※-------------");
         // 数据库数据
 
-        Wei a = new Wei("2022-04-28", 1, 12);
-        Wei b = new Wei("2022-03-29", 1, 15);
-        Wei c = new Wei("2022-03-30", 1, 8);
-        Wei d = new Wei("2022-03-31", 2, 6);
-        Wei e = new Wei("2022-04-01", 3, 5);
-        Wei f = new Wei("2022-04-02", 4, 5);
+        Wei a = new Wei("2022-03-28", 1, 12, BigDecimal.TEN);
+        Wei b = new Wei("2022-03-28", 2, 15, BigDecimal.ONE);
+        Wei c = new Wei("2022-03-29", 3, 8);
+        Wei d = new Wei("2022-03-31", 4, 6);
+        Wei e = new Wei("2022-04-01", 5, 5);
+        Wei f = new Wei("2022-04-01", 6, 5);
+        Wei g = null;
+        if (g != null && g.getName() != null) {
+            System.out.println("g" + g);
+        }
 
 
+        List<Wei> weiList = Arrays.asList(a, b);
+        ArrayList<Wei> weiList2 = new ArrayList<>();
+        System.out.println("remove"+weiList2.remove(weiList));
+        System.out.println("weiList2"+ weiList2);
+        System.out.println("longValue" + weiList.stream().map(i -> i.getMoney().longValue()).mapToLong(Long::longValue).sum());
         List<Wei> list = Arrays.asList(a, b, c, d, e, f);
-        list = null;
-        Optional<Wei> min = list.stream().min(Comparator.comparing(Wei::getName));
+        System.out.println("wei 2 ========"+ list.stream().max(Comparator.comparing(Wei::getName)).get());
+        List<Wei> collect = list.stream().sorted(Comparator.comparing(Wei::getName).reversed()).collect(Collectors.toList());
+        System.out.println("collect ==========" + collect);
+        Map<Integer, Wei> weiMap = list.stream().collect(Collectors.toMap(Wei::getAge, t -> t, (k1, k2) -> k1));
+        ArrayList<Wei> list2 = new ArrayList<>();
+        list.forEach(l ->{
+            Wei wei1 = weiMap.get(l.getAge());
+            if (Objects.isNull(wei1)) {
+                return;
+            }
+            list2.add(wei1);
+        });
+        System.out.println("list2------------>" + list2);
+        int ageTotal = list.stream().mapToInt(Wei::getAge).sum();
 
-        System.out.println(min.get());
+        Set<String> set = list.stream().map(Wei::getName).collect(Collectors.toSet());
+        System.out.println(set);
+        ArrayList<String> strings = new ArrayList<>(set);
+        System.out.println(strings);
+        strings.add(f.getName());
+        System.out.println(strings);
+//        list = null;
+//        Optional<Wei> min = list.stream().min(Comparator.comparing(Wei::getName));
+
+//        System.out.println(min.get());
         /*Set<Integer> collect = list.stream().map(Wei::getAccount).collect(Collectors.toSet());
         System.out.println(list.size());
         System.out.println(collect.size());
