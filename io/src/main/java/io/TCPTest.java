@@ -1,12 +1,12 @@
 package io;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.junit.jupiter.api.Test;
 
 /**
  * @Author Tmind
@@ -32,6 +32,8 @@ public class TCPTest {
      */
     @Test
     public void server() throws IOException {
+
+
         ServerSocket serverSocket = new ServerSocket(8899);
     }
 

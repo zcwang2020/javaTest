@@ -5,12 +5,13 @@ package io; /**
  * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.junit.jupiter.api.Test;
 
 /**
  * @Author Tmind
@@ -39,6 +40,7 @@ public class IoTest {
     @Test
     public void getPath() {
         File file = new File("helloWorld.txt");
+        System.out.println(file.getClass().getResource("path"));
         System.out.println(file.getPath());
     }
 

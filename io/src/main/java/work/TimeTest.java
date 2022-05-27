@@ -17,9 +17,9 @@ import util.DateUtils;
  */
 public class TimeTest {
     public static void main(String[] args) {
-        //        System.out.println(DateUtils.getStartTimeInMillis(new Date()));
-        //
-        //        System.out.println(DateUtils.lastDate());
+        System.out.println(DateUtils.getStartTimeInMillis(new Date()));
+
+        System.out.println(DateUtils.lastDate());
 
         long startTimeInMillis = DateUtils
             .getStartTimeInMillis(DateUtils.parseStringToLong("2022-03-31", DateUtils.DATE_FORMAT));
@@ -49,5 +49,8 @@ public class TimeTest {
          */
 
         System.out.println("parseLongToString" + DateUtils.parseLongToString(currentTime, DateUtils.DATEFORMAT));
+
+        long startTimeOfWeek = DateUtils.getStartTimeOfWeek(new Date());
+        System.out.println("startTimeOfWeek:" + startTimeOfWeek);
     }
 }
