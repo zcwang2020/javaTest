@@ -1,9 +1,7 @@
 package util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,13 +27,31 @@ public class JDBCUtils {
         return DriverManager.getConnection(url, user, password);
     }
 
-    public static void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+    public static void closeConnection(Connection connection, PreparedStatement preparedStatement,
+        ResultSet resultSet) {
         try {
-            connection.close();
-            preparedStatement.close();
-            resultSet.close();
+            if (connection != null) {
+                connection.close();
+            }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+        try {
+            if (preparedStatement != null) {
+
+                preparedStatement.close();
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        try {
+            if (resultSet != null) {
+
+                resultSet.close();
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
     }
 }
