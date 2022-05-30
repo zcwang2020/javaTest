@@ -8,7 +8,8 @@ package work;
 
 import java.math.BigDecimal;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 
 /**
  * @Author zcwang

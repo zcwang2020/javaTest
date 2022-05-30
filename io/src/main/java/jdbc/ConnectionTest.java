@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /**
  * @Author zcwang
