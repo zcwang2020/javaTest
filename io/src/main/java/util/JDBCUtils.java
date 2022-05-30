@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DataSources;
 
@@ -54,7 +55,7 @@ public class JDBCUtils {
             is = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
             Properties pros = new Properties();
             pros.load(is);
-            druidDataSource = BasicDataSourceFactory.createDataSource(pros);
+            druidDataSource = DruidDataSourceFactory.createDataSource(pros);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
