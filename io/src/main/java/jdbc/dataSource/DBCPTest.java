@@ -6,10 +6,18 @@
  */
 package jdbc.dataSource;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSourceFactory;
 import org.junit.Test;
+
+import jdbc.ConnectionTest;
 
 /**
  * @Author zcwang
@@ -26,5 +34,14 @@ public class DBCPTest {
         source.setPassword("abc123");
         System.out.println(source);
         System.out.println(source.getConnection());
+    }
+
+    @Test
+    public void testDBCPConfig() throws Exception {
+        InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("dbcp.properties");
+        Properties pros = new Properties();
+        pros.load(is);
+        DataSource dataSource = BasicDataSourceFactory.createDataSource(pros);
+        System.out.println(dataSource.getConnection());
     }
 }

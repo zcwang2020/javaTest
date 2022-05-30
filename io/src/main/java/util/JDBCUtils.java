@@ -1,5 +1,6 @@
 package util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSourceFactory;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mchange.v2.c3p0.DataSources;
 
 /**
  * @Author wzc
@@ -17,6 +23,28 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class JDBCUtils {
 
     private static ComboPooledDataSource cpds = new ComboPooledDataSource("helloC3P0");
+
+    private static DataSource dataSource;
+    static {
+        InputStream is = null;
+        try {
+            is = ClassLoader.getSystemClassLoader().getResourceAsStream("dbcp.properties");
+            Properties pros = new Properties();
+            pros.load(is);
+            dataSource = BasicDataSourceFactory.createDataSource(pros);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public static Connection getConnection() throws Exception {
         InputStream rs = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
@@ -33,6 +61,10 @@ public class JDBCUtils {
 
     public static Connection getC3P0Connection() throws Exception {
         return cpds.getConnection();
+    }
+
+    public static Connection getDBCPConnection() throws Exception {
+        return dataSource.getConnection();
     }
 
 

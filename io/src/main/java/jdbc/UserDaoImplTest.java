@@ -67,7 +67,7 @@ public class UserDaoImplTest {
     public void getOneUser() {
         Connection connection = null;
         try {
-            connection = JDBCUtils.getC3P0Connection();
+            connection = JDBCUtils.getDBCPConnection();
             User user = new User();
             user.setId(3L);
             System.out.println(userDao.getOneUser(connection, user));
