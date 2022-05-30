@@ -50,4 +50,9 @@ public class CalendarBO implements Serializable {
      * 底图
      */
     private String picUrl;
+
+    /**
+     * 跳转链接
+     */
+    private String linkUrl;
 }
