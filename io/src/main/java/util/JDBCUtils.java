@@ -12,6 +12,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
+import org.apache.commons.dbutils.DbUtils;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -124,5 +125,10 @@ public class JDBCUtils {
             sqlException.printStackTrace();
         }
 
+    }
+
+    public static void DBUtilsClose(Connection connection, PreparedStatement preparedStatement,
+        ResultSet resultSet) {
+        DbUtils.closeQuietly(connection,preparedStatement, resultSet);
     }
 }
