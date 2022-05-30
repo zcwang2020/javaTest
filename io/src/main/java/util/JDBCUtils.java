@@ -25,6 +25,9 @@ public class JDBCUtils {
     private static ComboPooledDataSource cpds = new ComboPooledDataSource("helloC3P0");
 
     private static DataSource dataSource;
+
+    private static DataSource druidDataSource;
+
     static {
         InputStream is = null;
         try {
@@ -44,6 +47,27 @@ public class JDBCUtils {
             }
         }
     }
+
+    static {
+        InputStream is = null;
+        try {
+            is = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
+            Properties pros = new Properties();
+            pros.load(is);
+            druidDataSource = BasicDataSourceFactory.createDataSource(pros);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
     public static Connection getConnection() throws Exception {
@@ -65,6 +89,10 @@ public class JDBCUtils {
 
     public static Connection getDBCPConnection() throws Exception {
         return dataSource.getConnection();
+    }
+
+    public static Connection getDruidConnection() throws Exception {
+        return druidDataSource.getConnection();
     }
 
 
