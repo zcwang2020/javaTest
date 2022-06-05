@@ -106,7 +106,7 @@ public class ConnectionTest {
         String user = pros.getProperty("user");
         String password = pros.getProperty("password");
         String url = pros.getProperty("url");
-        String driver = pros.getProperty("driver");
+        String driver = pros.getProperty("driverClass");
 
         Class.forName(driver);
 

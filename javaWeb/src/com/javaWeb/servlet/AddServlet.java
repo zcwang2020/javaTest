@@ -2,7 +2,6 @@ package com.javaWeb.servlet;
 
 import com.javaWeb.dao.FruitDaoImpl;
 import com.javaWeb.pojo.Fruit;
-import jdbc.bean.User;
 import util.JDBCUtils;
 
 import javax.servlet.ServletException;
