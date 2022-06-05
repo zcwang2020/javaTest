@@ -36,7 +36,7 @@ public class AddServlet extends HttpServlet {
 
         Connection connection = null;
         try {
-            connection = JDBCUtils.getConnection();
+            connection = JDBCUtils.getDruidConnection();
             int row = fruitDao.createFruit(connection, fruit);
             System.out.println(row == 1 ? "插入成功" : "插入失败");
         } catch (Exception e) {

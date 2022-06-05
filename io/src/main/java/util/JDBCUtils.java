@@ -33,7 +33,7 @@ public class JDBCUtils {
     static {
         InputStream is = null;
         try {
-            is = ClassLoader.getSystemClassLoader().getResourceAsStream("dbcp.properties");
+            is = JDBCUtils.class.getClassLoader().getResourceAsStream("dbcp.properties");
             Properties pros = new Properties();
             pros.load(is);
             dataSource = BasicDataSourceFactory.createDataSource(pros);
@@ -53,7 +53,7 @@ public class JDBCUtils {
     static {
         InputStream is = null;
         try {
-            is = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
+            is = JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties");
             Properties pros = new Properties();
             pros.load(is);
             druidDataSource = DruidDataSourceFactory.createDataSource(pros);
@@ -73,7 +73,7 @@ public class JDBCUtils {
 
 
     public static Connection getConnection() throws Exception {
-        InputStream rs = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
+        InputStream rs = JDBCUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
         Properties properties = new Properties();
         properties.load(rs);
 
