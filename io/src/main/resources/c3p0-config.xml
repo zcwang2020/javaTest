@@ -8,7 +8,10 @@
         <property name="password">abc123</property>-->
         <!--5.7数据库连接基本信息-->
         <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/dev?useUnicode=true&amp;characterEncoding=UTF-8&amp;rewriteBatchedStatements=true</property>
+        <!--台式机-->
+<!--        <property name="jdbcUrl">jdbc:mysql://localhost:3306/dev?useUnicode=true&amp;characterEncoding=UTF-8&amp;rewriteBatchedStatements=true</property>-->
+        <!--笔记本-->
+        <property name="jdbcUrl">jdbc:mysql://localhost:13306/mysql57?useUnicode=true&amp;characterEncoding=UTF-8&amp;rewriteBatchedStatements=true</property>
         <property name="user">root</property>
         <property name="password">abc123</property>
 
