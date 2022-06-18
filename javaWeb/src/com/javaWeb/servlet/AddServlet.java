@@ -5,6 +5,7 @@ import com.javaWeb.pojo.Fruit;
 import util.JDBCUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +16,12 @@ import java.sql.Connection;
  * @Author wzc
  * @Date 2022/6/5
  */
+@WebServlet("/add.do")
 public class AddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String fname = req.getParameter("fname");
         String price = req.getParameter("price");
         int intPrice = Integer.parseInt(price);
@@ -39,6 +42,7 @@ public class AddServlet extends HttpServlet {
             connection = JDBCUtils.getDruidConnection();
             int row = fruitDao.createFruit(connection, fruit);
             System.out.println(row == 1 ? "插入成功" : "插入失败");
+            resp.sendRedirect("index");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
