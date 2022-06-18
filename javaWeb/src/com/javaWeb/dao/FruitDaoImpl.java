@@ -42,8 +42,26 @@ public class FruitDaoImpl extends BaseDao<Fruit> implements FruitDao {
     }
 
     @Override
+    public List<Fruit> getFruitPage(Connection connection, Integer pageNo) {
+        String sql = "select * from fruit limit ? , 5";
+        return getList(connection, sql, (pageNo - 1) * 5);
+    }
+
+    @Override
+    public List<Fruit> getFruitBykey(Connection connection, String keyword, Integer pageNo) {
+        String sql = "select * from fruit where fname like ? or remark like ? limit ? , 5";
+        return getList(connection, sql, "%" + keyword + "%", "%" + keyword + "%", (pageNo - 1) * 5);
+    }
+
+    @Override
     public Long getTotal(Connection connection) {
         String sql = "select count(*) from `fruit`";
         return GetValue(connection, sql);
+    }
+
+    @Override
+    public Long getTotalByKey(Connection connection, String keyword) {
+        String sql = "select count(*) from `fruit` where fname like ? or remark like ? ";
+        return GetValue(connection, sql, "%" + keyword + "%", "%" + keyword + "%");
     }
 }

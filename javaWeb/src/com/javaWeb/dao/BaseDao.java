@@ -90,7 +90,7 @@ public abstract class BaseDao<T> {
             preparedStatement = connection.prepareStatement(sql);
             // 填充占位符
             for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(1, args[i]);
+                preparedStatement.setObject(i + 1, args[i]);
             }
             resultSet = preparedStatement.executeQuery();
             // 获取结果集元数据

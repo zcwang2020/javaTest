@@ -48,9 +48,34 @@ public interface FruitDao {
     List<Fruit> getAllFruit(Connection connection);
 
     /**
+     * 分页查询
+     * @param connection
+     * @param pageNo
+     * @return
+     */
+    List<Fruit> getFruitPage(Connection connection, Integer pageNo);
+
+    /**
+     * 关键字查询
+     * @param connection
+     * @param keyword
+     * @param pageNo
+     * @return
+     */
+    List<Fruit> getFruitBykey(Connection connection, String keyword, Integer pageNo);
+
+    /**
      * 查询用户总数
      * @param connection
      * @return
      */
     Long getTotal(Connection connection);
+
+    /**
+     * 关键字查询总数
+     * @param connection
+     * @param keyword
+     * @return
+     */
+    Long getTotalByKey(Connection connection, String keyword);
 }

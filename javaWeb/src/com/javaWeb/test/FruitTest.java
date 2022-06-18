@@ -31,4 +31,34 @@ public class FruitTest {
         }
     }
 
+    @Test
+    public void getFruitByKey() {
+        Connection connection = null;
+        try {
+            connection = JDBCUtils.getDruidConnection();
+            String key = "测试";
+            System.out.println(fruitDao.getFruitBykey(connection, key, 1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.closeConnection(connection, null, null);
+        }
+    }
+
+    @Test
+    public void getFruitPage() {
+        Connection connection = null;
+        try {
+            connection = JDBCUtils.getDruidConnection();
+            Integer pagrNo = 1;
+            System.out.println(fruitDao.getFruitPage(connection, pagrNo));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.closeConnection(connection, null, null);
+        }
+    }
+
+
+
 }
