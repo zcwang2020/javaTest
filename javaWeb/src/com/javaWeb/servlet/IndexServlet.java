@@ -64,12 +64,12 @@ public class IndexServlet extends ViewBaseServlet {
             }
             session.setAttribute("pageNo", pageNo);
             FruitDao fruitDAO = new FruitDaoImpl();
-            List<Fruit> fruitList = fruitDAO.getFruitBykey(connection, keyword, pageNo);
+            List<Fruit> fruitList = fruitDAO.getFruitBykey(keyword, pageNo);
             //保存到session作用域
             session.setAttribute("fruitList", fruitList);
             connection = JDBCUtils.getDruidConnection();
             //总记录条数
-            Long fruitCount = fruitDAO.getTotalByKey(connection, keyword);
+            Long fruitCount = fruitDAO.getTotalByKey(keyword);
             //总页数
             long pageCount = (fruitCount + 5 - 1) / 5;
         /*

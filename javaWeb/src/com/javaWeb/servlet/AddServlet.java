@@ -40,7 +40,7 @@ public class AddServlet extends HttpServlet {
         Connection connection = null;
         try {
             connection = JDBCUtils.getDruidConnection();
-            int row = fruitDao.createFruit(connection, fruit);
+            int row = fruitDao.createFruit(fruit);
             System.out.println(row == 1 ? "插入成功" : "插入失败");
             resp.sendRedirect("index");
         } catch (Exception e) {

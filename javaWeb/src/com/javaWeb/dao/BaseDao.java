@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +27,12 @@ public abstract class BaseDao<T> {
         clazz = (Class<T>) actualTypeArguments[0];
     }
 
-    public int update(Connection connection, String sql, Object... args) {
+    public int update(String sql, Object... args) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         // 预编译sql
         try {
+            connection = JDBCUtils.getDruidConnection();
             preparedStatement = connection.prepareStatement(sql);
             // 填充占位符
             for (int i = 0; i < args.length; i++) {
@@ -39,7 +40,7 @@ public abstract class BaseDao<T> {
             }
 
             return preparedStatement.executeUpdate();
-        } catch (SQLException sqlException) {
+        } catch (Exception sqlException) {
             sqlException.printStackTrace();
         } finally {
             JDBCUtils.closeConnection(connection, preparedStatement, null);
@@ -47,9 +48,11 @@ public abstract class BaseDao<T> {
         return 0;
     }
 
-    public T getOne(Connection connection, String sql, Object... args) {
+    public T getOne(String sql, Object... args) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
+            connection = JDBCUtils.getDruidConnection();
             // 预编译sql
             preparedStatement = connection.prepareStatement(sql);
             // 填充占位符
@@ -82,15 +85,17 @@ public abstract class BaseDao<T> {
         return null;
     }
 
-    public List<T> getList(Connection connection, String sql, Object... args) {
+    public List<T> getList(String sql, Object... args) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
+            connection = JDBCUtils.getDruidConnection();
             // 预编译sql
             preparedStatement = connection.prepareStatement(sql);
             // 填充占位符
             for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(i + 1, args[i]);
+                preparedStatement.setObject(1, args[i]);
             }
             resultSet = preparedStatement.executeQuery();
             // 获取结果集元数据
@@ -120,15 +125,17 @@ public abstract class BaseDao<T> {
         return null;
     }
 
-    public <E> E GetValue(Connection connection, String sql, Object... args) {
+    public <E> E GetValue(String sql, Object... args) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
+            connection = JDBCUtils.getDruidConnection();
             // 预编译sql
             preparedStatement = connection.prepareStatement(sql);
             // 填充占位符
             for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(1, args[i]);
+                preparedStatement.setObject(i + 1, args[i]);
             }
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

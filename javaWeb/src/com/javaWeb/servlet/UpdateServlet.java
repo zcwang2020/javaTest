@@ -38,11 +38,11 @@ public class UpdateServlet extends ViewBaseServlet {
             String remark = request.getParameter("remark");
 
             //3.执行更新
-            fruitDAO.updateFruit(connection, new Fruit(id, fname, price, fcount, remark));
+            fruitDAO.updateFruit(new Fruit(id, fname, price, fcount, remark));
 
             //4.资源跳转
             //super.processTemplate("index",request,response);
-            //request.getRequestDispatcher("index.html").forward(request,response);
+            //request.getRequestDispatcher("index01.html").forward(request,response);
             //此处需要重定向，目的是重新给IndexServlet发请求，重新获取furitList，然后覆盖到session中，这样index.html页面上显示的session中的数据才是最新的
             response.sendRedirect("index");
         } catch (Exception e) {

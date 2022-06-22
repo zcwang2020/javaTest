@@ -12,56 +12,56 @@ import java.util.List;
 public class FruitDaoImpl extends BaseDao<Fruit> implements FruitDao {
 
     @Override
-    public int createFruit(Connection connection, Fruit fruit) {
+    public int createFruit(Fruit fruit) {
         String sql = "insert into `fruit` (fname,price,fcount,remark) values (?,?,?,?)";
-        return update(connection, sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(), fruit.getRemark());
+        return update(sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(), fruit.getRemark());
     }
 
     @Override
-    public int deleteFruit(Connection connection, Fruit user) {
+    public int deleteFruit(Fruit user) {
         String sql = "delete from `fruit` where id = ?";
-        return update(connection, sql, user.getId());
+        return update(sql, user.getId());
     }
 
     @Override
-    public int updateFruit(Connection connection, Fruit fruit) {
+    public int updateFruit(Fruit fruit) {
         String sql = "update `fruit` set fname = ? , price = ? , fcount = ?,remark = ? where id = ?";
-        return update(connection, sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(), fruit.getRemark(), fruit.getId());
+        return update(sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(), fruit.getRemark(), fruit.getId());
     }
 
     @Override
-    public Fruit getOneFruit(Connection connection, Fruit fruit) {
+    public Fruit getOneFruit(Fruit fruit) {
         String sql = "select * from `fruit` where id = ?";
-        return getOne(connection, sql, fruit.getId());
+        return getOne(sql, fruit.getId());
     }
 
     @Override
-    public List<Fruit> getAllFruit(Connection connection) {
+    public List<Fruit> getAllFruit() {
         String sql = "select * from `fruit`";
-        return getList(connection, sql);
+        return getList(sql);
     }
 
     @Override
-    public List<Fruit> getFruitPage(Connection connection, Integer pageNo) {
+    public List<Fruit> getFruitPage(Integer pageNo) {
         String sql = "select * from fruit limit ? , 5";
-        return getList(connection, sql, (pageNo - 1) * 5);
+        return getList(sql, (pageNo - 1) * 5);
     }
 
     @Override
-    public List<Fruit> getFruitBykey(Connection connection, String keyword, Integer pageNo) {
+    public List<Fruit> getFruitBykey(String keyword, Integer pageNo) {
         String sql = "select * from fruit where fname like ? or remark like ? limit ? , 5";
-        return getList(connection, sql, "%" + keyword + "%", "%" + keyword + "%", (pageNo - 1) * 5);
+        return getList(sql, "%" + keyword + "%", "%" + keyword + "%", (pageNo - 1) * 5);
     }
 
     @Override
-    public Long getTotal(Connection connection) {
+    public Long getTotal() {
         String sql = "select count(*) from `fruit`";
-        return GetValue(connection, sql);
+        return GetValue(sql);
     }
 
     @Override
-    public Long getTotalByKey(Connection connection, String keyword) {
+    public Long getTotalByKey(String keyword) {
         String sql = "select count(*) from `fruit` where fname like ? or remark like ? ";
-        return GetValue(connection, sql, "%" + keyword + "%", "%" + keyword + "%");
+        return GetValue(sql, "%" + keyword + "%", "%" + keyword + "%");
     }
 }

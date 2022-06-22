@@ -23,7 +23,7 @@ public class FruitTest {
             connection = JDBCUtils.getDruidConnection();
             Fruit fruit = new Fruit();
             fruit.setId(1L);
-            System.out.println(fruitDao.getOneFruit(connection, fruit));
+            System.out.println(fruitDao.getOneFruit(fruit));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -37,7 +37,7 @@ public class FruitTest {
         try {
             connection = JDBCUtils.getDruidConnection();
             String key = "测试";
-            System.out.println(fruitDao.getFruitBykey(connection, key, 1));
+            System.out.println(fruitDao.getFruitBykey(key, 1));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,7 +51,7 @@ public class FruitTest {
         try {
             connection = JDBCUtils.getDruidConnection();
             Integer pagrNo = 1;
-            System.out.println(fruitDao.getFruitPage(connection, pagrNo));
+            System.out.println(fruitDao.getFruitPage(pagrNo));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

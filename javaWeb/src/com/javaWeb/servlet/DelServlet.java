@@ -29,7 +29,7 @@ public class DelServlet extends ViewBaseServlet {
                 Long id = Long.parseLong(idStr);
                 Fruit fruit = new Fruit();
                 fruit.setId(id);
-                fruitDAO.deleteFruit(connection, fruit);
+                fruitDAO.deleteFruit(fruit);
 
                 //super.processTemplate("index",request,response);
                 response.sendRedirect("index");

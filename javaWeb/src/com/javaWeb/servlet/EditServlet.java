@@ -28,7 +28,7 @@ public class EditServlet extends ViewBaseServlet {
                 long fid = Long.parseLong(idStr);
                 Fruit fruit = new Fruit();
                 fruit.setId(fid);
-                Fruit fruitFromDB = fruitDAO.getOneFruit(connection, fruit);
+                Fruit fruitFromDB = fruitDAO.getOneFruit(fruit);
                 request.setAttribute("fruit",fruitFromDB);
                 super.processTemplate("edit",request,response);
             }
