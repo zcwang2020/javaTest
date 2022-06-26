@@ -16,7 +16,7 @@ import java.sql.Connection;
  * @Author wzc
  * @Date 2022/6/5
  */
-@WebServlet("/add.do")
+//@WebServlet("/add.do")
 public class AddServlet extends HttpServlet {
 
     @Override

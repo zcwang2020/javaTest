@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/edit.do")
+//@WebServlet("/edit.do")
 public class EditServlet extends ViewBaseServlet {
 
     private FruitDaoImpl fruitDAO = new FruitDaoImpl();

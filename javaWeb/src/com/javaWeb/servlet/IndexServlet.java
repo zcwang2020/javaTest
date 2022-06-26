@@ -17,7 +17,7 @@ import java.sql.Connection;
 import java.util.List;
 
 //Servlet从3.0版本开始支持注解方式的注册
-@WebServlet("/index")
+//@WebServlet("/index")
 public class IndexServlet extends ViewBaseServlet {
 
     @Override

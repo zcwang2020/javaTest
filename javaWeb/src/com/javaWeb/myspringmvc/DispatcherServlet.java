@@ -1,5 +1,6 @@
 package com.javaWeb.myspringmvc;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,7 +23,7 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class DispatcherServlet extends ViewBaseServlet {
 
     private final Map<String, Object> beanMap = new HashMap<>();
@@ -93,6 +94,7 @@ public class DispatcherServlet extends ViewBaseServlet {
 
         try {
             Method[] methods = controllerBeanObj.getClass().getDeclaredMethods();
+            System.out.println("methods ==== " + JSON.toJSONString(methods));
             for (Method method : methods) {
                 if (operate.equals(method.getName())) {
                     //1.统一获取请求参数
@@ -120,7 +122,7 @@ public class DispatcherServlet extends ViewBaseServlet {
 
                             if (parameterObj != null) {
                                 if ("java.lang.Integer".equals(typeName)) {
-                                    parameterObj = Long.parseLong(parameterValue);
+                                    parameterObj = Integer.parseInt(parameterValue);
                                 }
                             }
 

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/del.do")
+//@WebServlet("/del.do")
 public class DelServlet extends ViewBaseServlet {
     private final FruitDao fruitDAO = new FruitDaoImpl();
 
