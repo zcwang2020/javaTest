@@ -31,4 +31,17 @@ public class UserController {
             return "login";
         }
     }
+
+    public String friend(Integer id, HttpSession session){
+        //1.根据id获取指定的用户信息
+        UserBasic currFriend = userBasicService.getUserBasicById(id);
+
+        List<Topic> topicList = topicService.getTopicList(currFriend);
+
+        currFriend.setTopicList(topicList);
+
+        session.setAttribute("friend",currFriend);
+
+        return "index";
+    }
 }

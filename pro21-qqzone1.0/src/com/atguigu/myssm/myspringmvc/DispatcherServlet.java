@@ -20,6 +20,7 @@ public class DispatcherServlet extends ViewBaseServlet{
     public DispatcherServlet(){
     }
 
+    @Override
     public void init() throws ServletException {
         super.init();
         //之前是在此处主动创建IOC容器的

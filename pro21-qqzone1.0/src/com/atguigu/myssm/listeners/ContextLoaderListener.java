@@ -2,6 +2,7 @@ package com.atguigu.myssm.listeners;
 
 import com.atguigu.myssm.ioc.BeanFactory;
 import com.atguigu.myssm.ioc.ClassPathXmlApplicationContext;
+import lombok.SneakyThrows;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebListener;
 //后面中央控制器再从application作用域中去获取IOC容器
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
+    @SneakyThrows
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         //1.获取ServletContext对象
