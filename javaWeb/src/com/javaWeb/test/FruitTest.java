@@ -1,12 +1,13 @@
 package com.javaWeb.test;
 
+import java.sql.Connection;
+
+import org.junit.jupiter.api.Test;
+
 import com.javaWeb.dao.FruitDaoImpl;
 import com.javaWeb.pojo.Fruit;
-import jdbc.bean.User;
-import org.junit.Test;
-import util.JDBCUtils;
 
-import java.sql.Connection;
+import util.JDBCUtils;
 
 /**
  * @Author wzc
@@ -58,7 +59,5 @@ public class FruitTest {
             JDBCUtils.closeConnection(connection, null, null);
         }
     }
-
-
 
 }
