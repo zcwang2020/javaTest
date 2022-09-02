@@ -17,8 +17,24 @@
         from t_user
         where id = 3
     </delete>
+    <delete id="deleteMore">
+        delete from t_user where id in (${ids})
+    </delete>
     <select id="getAllUser" resultType="com.test.pojo.User">
         select *
         from t_user
     </select>
+    <select id="getUserById" resultType="com.test.pojo.User">
+        select * from t_user where  id = #{id}
+    </select>
+    <select id="checkLogin" resultType="com.test.pojo.User">
+        select * from t_user where  username = #{username} and password = #{password}
+    </select>
+    <select id="getByUser" resultType="com.test.pojo.User">
+        select * from t_user where  username = #{username} and password = #{password}
+    </select>
+    <insert id="addUser">
+        insert into t_user
+        values (null, #{username}, #{password}, #{age}, #{gender}, #{email})
+    </insert>
 </mapper>

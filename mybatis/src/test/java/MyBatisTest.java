@@ -8,7 +8,7 @@
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Arrays;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -68,6 +68,46 @@ public class MyBatisTest {
 
     }
 
+    @Test
+    public void getUserById() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        Long id = 1L;
+        System.out.println("mapper.getUserById(id) = " + mapper.getUserById(id));
+    }
 
+    @Test
+    public void checkLogin() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        String userName = "admin";
+        String password = "123456";
+        User user = mapper.checkLogin(userName, password);
+        System.out.println("user = " + user);
+    }
+
+    @Test
+    public void insertUser() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User(null, "zc", "123", 19, "女", "111@88.com");
+        mapper.addUser(user);
+    }
+
+    @Test
+    public void getByUser() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User(null, "zc", "123", 19, "女", "111@88.com");
+        User byUser = mapper.getByUser(user);
+        System.out.println("byUser = " + byUser);
+    }
+
+    @Test
+    public void deleteMore() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.deleteMore("2,5,8");
+    }
 
 }
