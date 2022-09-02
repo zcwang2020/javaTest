@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.EmpMapper">
+
+<!--    1.级联查询-->
+    <!--<resultMap id="empAndDeptResultMap" type="com.test.pojo.Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <result column="dept_id" property="dept.deptId"></result>
+        <result column="dept_name" property="dept.deptName"></result>
+    </resultMap>-->
+<!--    2.association-->
+    <!--<resultMap id="empAndDeptResultMap" type="com.test.pojo.Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <association property="dept" javaType="com.test.pojo.Dept">
+            <id column="dept_id" property="deptId"></id>
+            <id column="dept_name" property="deptName"></id>
+        </association>
+    </resultMap>-->
+<!--3.分步查询 fetchType="eager"单独设置是否延迟加载-->
+    <resultMap id="empAndDeptResultMap" type="com.test.pojo.Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <association property="dept"
+                     select="com.test.mapper.DeptMapper.getEmpAndDeptByStepTwo"
+                     column="dept_id"
+                     fetchType="eager">
+        </association>
+    </resultMap>
+
+    <select id="getEmpById" resultType="Emp">
+        select *
+        from t_emp
+        where emp_id = #{empId}
+    </select>
+
+    <select id="getEmpAndDept" resultMap="empAndDeptResultMap">
+        select t_emp.*, t_dept.*
+        from t_emp
+                 left join t_dept on t_emp.emp_id = t_dept.dept_id
+        where t_emp.emp_id = #{empId}
+    </select>
+    <select id="getEmpAndDeptByStepOne" resultMap="empAndDeptResultMap">
+        select *
+        from t_emp
+        where emp_id = #{empId}
+    </select>
+    <select id="getDeptAndAllEmpStepTwo" resultType="com.test.pojo.Emp">
+        select * from t_emp where dept_id = #{deptId}
+    </select>
+</mapper>

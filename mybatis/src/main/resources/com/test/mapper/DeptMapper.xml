@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.DeptMapper">
+
+    <!--1.collection1对多查询-->
+    <!--ofType:设置集合类型的属性中存储的数据的类型-->
+    <resultMap id="deptResultMap" type="com.test.pojo.Dept">
+        <id column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="empList" ofType="com.test.pojo.Emp" >
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+            <result column="dept_id" property="dept.deptId"></result>
+            <result column="dept_name" property="dept.deptName"></result>
+        </collection>
+    </resultMap>
+    <resultMap id="deptResultMapStep" type="com.test.pojo.Dept">
+        <id column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="empList"
+                    select="com.test.mapper.EmpMapper.getDeptAndAllEmpStepTwo"
+                    column="dept_id">
+        </collection>
+    </resultMap>
+    <select id="getEmpAndDeptByStepTwo" resultMap="deptResultMap">
+        select *
+        from t_dept
+        where dept_id = #{dept_id}
+    </select>
+
+    <select id="getDeptAndAllEmp" resultMap="deptResultMap">
+        select *
+        from t_dept
+                 left join t_emp on t_dept.dept_id = t_emp.dept_id
+        where t_dept.dept_id = #{deptId}
+    </select>
+
+    <select id="getDeptAndAllEmpStepOne" resultMap="deptResultMapStep">
+        select *
+        from t_dept
+        where dept_id = #{deptId}
+    </select>
+</mapper>

@@ -4,6 +4,14 @@
 
     <properties resource="jdbc.properties"/>
 
+<!--    下划线和驼峰相互转换-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
     <typeAliases>
         <!-- 设置别名 -->
         <!-- <typeAlias type="com.test.pojo.User" alias="user"/>-->
