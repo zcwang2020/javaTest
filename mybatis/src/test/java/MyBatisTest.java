@@ -9,6 +9,7 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -110,4 +111,20 @@ public class MyBatisTest {
         mapper.deleteMore("2,5,8");
     }
 
+    @Test
+    public void getByTable() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> byTable = mapper.getByTable("t_user");
+        byTable.forEach(System.out::println);
+    }
+
+    @Test
+    public void addUser() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User(null, "zc", "123", 19, "女", "111@88.com");
+        mapper.insertU(user);
+        System.out.println(user);
+    }
 }

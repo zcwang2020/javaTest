@@ -18,22 +18,46 @@
         where id = 3
     </delete>
     <delete id="deleteMore">
-        delete from t_user where id in (${ids})
+        delete
+        from t_user
+        where id in (${ids})
     </delete>
     <select id="getAllUser" resultType="com.test.pojo.User">
         select *
         from t_user
     </select>
     <select id="getUserById" resultType="com.test.pojo.User">
-        select * from t_user where  id = #{id}
+        select *
+        from t_user
+        where id = #{id}
     </select>
     <select id="checkLogin" resultType="com.test.pojo.User">
-        select * from t_user where  username = #{username} and password = #{password}
+        select *
+        from t_user
+        where username = #{username}
+          and password = #{password}
     </select>
     <select id="getByUser" resultType="com.test.pojo.User">
-        select * from t_user where  username = #{username} and password = #{password}
+        select *
+        from t_user
+        where username = #{username}
+          and password = #{password}
+    </select>
+
+   <!-- #{}会自动加''，导致查询失败:select * from ?
+    select * from #{tableName}-->
+    <select id="getByTable" resultType="com.test.pojo.User">
+        select *
+        from ${tableName}
     </select>
     <insert id="addUser">
+        insert into t_user
+        values (null, #{username}, #{password}, #{age}, #{gender}, #{email})
+    </insert>
+
+<!--    useGeneratedKeys="true" 自增主键-->
+<!--    keyProperty="id" 因为增删改有统一的返回值是受影响的行数，因此只能将获取的自增的主键放在传输的参数user对象的某个属性中-->
+    <insert id="insertU" useGeneratedKeys="true" keyProperty="id">
         insert into t_user
         values (null, #{username}, #{password}, #{age}, #{gender}, #{email})
     </insert>

@@ -85,4 +85,17 @@ public interface UserMapper {
      * @param ids
      */
     void deleteMore(@Param("ids") String ids);
+
+    /**
+     * 根据表名查询
+     * @param tableName
+     * @return
+     */
+    List<User> getByTable(@Param("tableName") String tableName);
+
+    /**
+     * 插入数据并返回主键
+     * @param user
+     */
+    void insertU(User user);
 }
