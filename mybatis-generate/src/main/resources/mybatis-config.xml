@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration> <!--设置连接数据库的环境-->
+
+    <properties resource="jdbc.properties"/>
+
+<!--    下划线和驼峰相互转换-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <typeAliases>
+        <!-- 设置别名 -->
+        <!-- <typeAlias type="com.test.pojo.User" alias="user"/>-->
+        <!-- 不设置别名，默认类名且不区分大小写-->
+        <!-- <typeAlias type="com.test.pojo.User" alias="user"/>-->
+        <!-- 以包的形式设置别名-->
+        <package name="com.study.mybatis.mapper"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments> <!--引入映射文件-->
+    <mappers>
+<!--        <mapper resource="mappers/UserMapper.xml"/>-->
+        <package name="com.study.mybatis.mapper"/>
+    </mappers>
+</configuration>
