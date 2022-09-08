@@ -30,6 +30,7 @@ public class User {
     private Map<String, Teacher> teacherMap;
 
     public User() {
+        System.out.println("生命周期1：实例化");
     }
 
     public User(Long id, String username, String password, Integer age, String gender, String email) {
@@ -46,6 +47,7 @@ public class User {
     }
 
     public void setId(Long id) {
+        System.out.println("生命周期2：依赖注入");
         this.id = id;
     }
 
@@ -117,5 +119,13 @@ public class User {
                 ", clazz=" + clazz +
                 ", teacherMap=" + teacherMap +
                 '}';
+    }
+
+    public void initMethod() {
+        System.out.println("生命周期3：初始化");
+    }
+
+    public void destroyMethod() {
+        System.out.println("生命周期4：销毁");
     }
 }
