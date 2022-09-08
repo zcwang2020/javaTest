@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.spring.pojo.Clazz;
 import com.spring.pojo.User;
 
@@ -68,5 +69,12 @@ public class SpringTest {
         User user3 = ioc.getBean("user4", User.class);
         System.out.println("user4 = " + user3);
 
+    }
+
+    @Test
+    public void testDataSource() {
+        ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-datasource.xml");
+        DruidDataSource datasource = ioc.getBean(DruidDataSource.class);
+        System.out.println(datasource);
     }
 }
