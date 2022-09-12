@@ -1,6 +1,6 @@
 import com.spring.proxy.ProxyFactory;
 import com.spring.proxy.Calculator;
-import com.spring.proxy.impl.calculatorImpl;
+import com.spring.proxy.impl.CalculatorImpl;
 import org.junit.Test;
 
 /**
@@ -11,7 +11,7 @@ public class TestProxy {
 
     @Test
     public void testProxy() {
-        ProxyFactory proxyFactory = new ProxyFactory(new calculatorImpl());
+        ProxyFactory proxyFactory = new ProxyFactory(new CalculatorImpl());
         Calculator proxy = (Calculator) proxyFactory.getProxy();
         proxy.add(1, 2);
     }

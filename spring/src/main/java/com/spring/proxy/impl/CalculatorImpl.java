@@ -6,7 +6,7 @@ import com.spring.proxy.Calculator;
  * @Author wzc
  * @Date 2022/9/11
  */
-public class calculatorImpl implements Calculator {
+public class CalculatorImpl implements Calculator {
 
     public Integer add(Integer a, Integer b) {
         System.out.println("方法内部");
