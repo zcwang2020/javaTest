@@ -1,9 +1,8 @@
 package com.javaWeb.dao;
 
-import com.javaWeb.pojo.Fruit;
-
-import java.sql.Connection;
 import java.util.List;
+
+import com.javaWeb.pojo.Fruit;
 
 /**
  * @Author wzc

@@ -1,19 +1,21 @@
 package com.javaWeb.servlet;
 
 
+import java.io.IOException;
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.javaWeb.dao.FruitDao;
 import com.javaWeb.dao.FruitDaoImpl;
 import com.javaWeb.myspringmvc.ViewBaseServlet;
 import com.javaWeb.pojo.Fruit;
-import org.apache.commons.lang.StringUtils;
-import util.JDBCUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
+import util.JDBCUtils;
 
 //@WebServlet("/del.do")
 public class DelServlet extends ViewBaseServlet {

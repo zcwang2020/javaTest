@@ -1,21 +1,24 @@
 package com.javaWeb.servlet;
 
 
-import com.javaWeb.dao.FruitDao;
-import com.javaWeb.dao.FruitDaoImpl;
-import com.javaWeb.myspringmvc.ViewBaseServlet;
-import com.javaWeb.pojo.Fruit;
-import org.apache.commons.lang.StringUtils;
-import util.JDBCUtils;
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.Connection;
-import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.javaWeb.dao.FruitDao;
+import com.javaWeb.dao.FruitDaoImpl;
+import com.javaWeb.myspringmvc.ViewBaseServlet;
+import com.javaWeb.pojo.Fruit;
+
+import util.JDBCUtils;
 
 @WebServlet("/fruit.do")
 public class FruitServlet extends ViewBaseServlet {

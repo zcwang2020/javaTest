@@ -1,20 +1,22 @@
 package com.javaWeb.servlet;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.javaWeb.dao.FruitDao;
 import com.javaWeb.dao.FruitDaoImpl;
 import com.javaWeb.myspringmvc.ViewBaseServlet;
 import com.javaWeb.pojo.Fruit;
-import org.apache.commons.lang.StringUtils;
-import util.JDBCUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.Connection;
-import java.util.List;
+import util.JDBCUtils;
 
 //Servlet从3.0版本开始支持注解方式的注册
 //@WebServlet("/index")

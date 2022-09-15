@@ -1,7 +1,5 @@
 package com.javaWeb.dao;
 
-import util.JDBCUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -11,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.JDBCUtils;
 
 /**
  * @Author wzc

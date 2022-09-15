@@ -1,17 +1,18 @@
 package com.javaWeb.servlet;
 
+import java.io.IOException;
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.javaWeb.dao.FruitDao;
 import com.javaWeb.dao.FruitDaoImpl;
 import com.javaWeb.myspringmvc.ViewBaseServlet;
 import com.javaWeb.pojo.Fruit;
-import util.JDBCUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
+import util.JDBCUtils;
 
 //@WebServlet("/update.do")
 public class UpdateServlet extends ViewBaseServlet {

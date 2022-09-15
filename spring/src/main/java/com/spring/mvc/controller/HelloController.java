@@ -4,7 +4,7 @@
  * Copyright 2022 Netease, Inc. All rights reserved.
  * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.spring.controller;
+package com.spring.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
 
     @RequestMapping("/")
-    public String hello() {
+    public String index() {
         return "index";
+    }
+
+    @RequestMapping("/hello")
+    public String hello() {
+        return "success";
     }
 }
