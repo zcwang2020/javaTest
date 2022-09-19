@@ -27,6 +27,7 @@
 <!--    开启mvc的注解驱动-->
     <mvc:annotation-driven/>
 
+
 <!--    配置首页的视图解析器-->
     <mvc:view-controller path="/" view-name="index"/>
 </beans>
