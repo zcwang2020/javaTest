@@ -22,4 +22,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAll() {
         return bookMapper.selectList(null);
     }
+
+    @Override
+    public Book getById(Integer id) {
+        return bookMapper.selectById(id);
+    }
 }
