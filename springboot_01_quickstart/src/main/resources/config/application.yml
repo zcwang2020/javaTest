@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: @profileActive@
+    group:
+      "dev": dev,devDB
+      "test": test
+
+a:
+  name: ${random.value}
+  age : ${random.int}
