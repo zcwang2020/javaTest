@@ -4,6 +4,10 @@ spring:
     group:
       "dev": dev,devDB
       "test": test
+  mail:
+    host: smtp.qq.com
+    username: XXX@qq.com
+    password: XXX
 
 a:
   name: ${random.value}
