@@ -13,4 +13,6 @@ package com.test.service;
 public interface SendEmailService {
 
     void sendEmail();
+
+    void sendEmail(String to);
 }

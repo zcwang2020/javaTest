@@ -5,9 +5,10 @@ spring:
       "dev": dev,devDB
       "test": test
   mail:
-    host: smtp.qq.com
-    username: XXX@qq.com
-    password: XXX
+#    host: smtp.qq.com
+    host: smtp.126.com
+    username: xxx@xxx.com
+    password: xxx
 
 a:
   name: ${random.value}

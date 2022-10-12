@@ -27,7 +27,7 @@ class Springboot01QuickstartApplicationTests {
 
     @Test
     void sendMailTest() {
-        sendEmailService.sendEmail();
+        sendEmailService.sendEmail("");
     }
 
 }
