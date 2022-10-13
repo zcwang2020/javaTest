@@ -13,3 +13,6 @@ spring:
 a:
   name: ${random.value}
   age : ${random.int}
+
+server:
+  port: 8081
