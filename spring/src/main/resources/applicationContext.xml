@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="user" class="com.spring.pojo.User">
+    <com.baima.bean id="user" class="com.spring.pojo.User">
         <property name="id" value="1"/>
         <property name="username" value="1"/>
         <property name="password">
@@ -12,9 +12,9 @@
         <property name="age" value="1"/>
         <property name="gender" value="男"/>
         <property name="email" value="1@qq.com"/>
-     </bean>
+     </com.baima.bean>
 
-    <bean id="user2" class="com.spring.pojo.User">
+    <com.baima.bean id="user2" class="com.spring.pojo.User">
         <constructor-arg name="id" value="2"/>
         <constructor-arg name="username" value="2"/>
         <constructor-arg name="password">
@@ -23,9 +23,9 @@
         <constructor-arg name="age" value="1"/>
         <constructor-arg name="gender" value="男"/>
         <constructor-arg name="email" value="1@qq.com"/>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="user3" class="com.spring.pojo.User">
+    <com.baima.bean id="user3" class="com.spring.pojo.User">
         <property name="id" value="3"/>
         <property name="username" value="3"/>
         <property name="password">
@@ -40,9 +40,9 @@
                 <entry key="2" value-ref="teacher2"/>
             </map>
         </property>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="user4" class="com.spring.pojo.User">
+    <com.baima.bean id="user4" class="com.spring.pojo.User">
         <property name="id" value="4"/>
         <property name="username" value="4"/>
         <property name="password">
@@ -52,39 +52,39 @@
         <property name="gender" value="男"/>
         <property name="email" value="1@qq.com"/>
         <property name="teacherMap" ref="teacherMap"/>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="clazz1" class="com.spring.pojo.Clazz">
+    <com.baima.bean id="clazz1" class="com.spring.pojo.Clazz">
         <property name="cid" value="1111"/>
         <property name="cname" value="王者"/>
         <property name="userList">
             <list>
-                <ref bean="user"/>
-                <ref bean="user2"/>
+                <ref com.baima.bean="user"/>
+                <ref com.baima.bean="user2"/>
             </list>
         </property>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="clazz2" class="com.spring.pojo.Clazz">
+    <com.baima.bean id="clazz2" class="com.spring.pojo.Clazz">
         <property name="cid" value="1111"/>
         <property name="cname" value="王者"/>
         <property name="userList" ref="userList"/>
-    </bean>
+    </com.baima.bean>
 
     <util:list id="userList">
-        <ref bean="user"/>
-        <ref bean="user2"/>
+        <ref com.baima.bean="user"/>
+        <ref com.baima.bean="user2"/>
     </util:list>
 
-    <bean id="teacher1" class="com.spring.pojo.Teacher">
+    <com.baima.bean id="teacher1" class="com.spring.pojo.Teacher">
         <property name="tid" value="10010"/>
         <property name="tname" value="铁甲小宝"/>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="teacher2" class="com.spring.pojo.Teacher">
+    <com.baima.bean id="teacher2" class="com.spring.pojo.Teacher">
         <property name="tid" value="10086"/>
         <property name="tname" value="蜻蜓队长"/>
-    </bean>
+    </com.baima.bean>
 
     <util:map id="teacherMap">
         <entry key="1" value-ref="teacher1"/>

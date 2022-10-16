@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!DOCTYPE beans [
-    <!ELEMENT beans (bean*)>
-    <!ELEMENT bean (property*)>
+    <!ELEMENT beans (com.baima.bean*)>
+    <!ELEMENT com.baima.bean (property*)>
     <!ELEMENT property (#PCDATA)>
 
-    <!ATTLIST bean id ID #REQUIRED>
-    <!ATTLIST bean class CDATA #IMPLIED>
+    <!ATTLIST com.baima.bean id ID #REQUIRED>
+    <!ATTLIST com.baima.bean class CDATA #IMPLIED>
     <!ATTLIST property name CDATA #IMPLIED>
     <!ATTLIST property ref IDREF #IMPLIED>
 ]>
 
 <beans>
-    <bean id="userBasicDAO" class="com.atguigu.qqzone.dao.impl.UserBasicDAOImpl"/>
-    <bean id="topicDAO" class="com.atguigu.qqzone.dao.impl.TopicDAOImpl"/>
+    <com.baima.bean id="userBasicDAO" class="com.atguigu.qqzone.dao.impl.UserBasicDAOImpl"/>
+    <com.baima.bean id="topicDAO" class="com.atguigu.qqzone.dao.impl.TopicDAOImpl"/>
 
-    <bean id="userBasicService" class="com.atguigu.qqzone.service.impl.UserBasicServiceImpl">
+    <com.baima.bean id="userBasicService" class="com.atguigu.qqzone.service.impl.UserBasicServiceImpl">
         <property name="userBasicDAO" ref="userBasicDAO"/>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="topicService" class="com.atguigu.qqzone.service.impl.TopicServiceImpl">
+    <com.baima.bean id="topicService" class="com.atguigu.qqzone.service.impl.TopicServiceImpl">
         <property name="topicDAO" ref="topicDAO"/>
-    </bean>
+    </com.baima.bean>
 
-    <bean id="user" class="com.atguigu.qqzone.controller.UserController">
+    <com.baima.bean id="user" class="com.atguigu.qqzone.controller.UserController">
         <property name="userBasicService" ref="userBasicService"/>
         <property name="topicService" ref="topicService"/>
-    </bean>
-  <bean id="page" class="com.atguigu.myssm.myspringmvc.PageController"/>
+    </com.baima.bean>
+  <com.baima.bean id="page" class="com.atguigu.myssm.myspringmvc.PageController"/>
 
 </beans>

@@ -13,23 +13,23 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!--配置数据源-->
-    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
+    <com.baima.bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-    </bean>
+    </com.baima.bean>
 
     <!--配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <com.baima.bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="datasource"/>
-    </bean>
+    </com.baima.bean>
 
     <!--开启事务的注解驱动-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!--配置SqlSessionFactoryBean-->
-    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+    <com.baima.bean class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--设置mybatis核心配置文件的路径-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--配置数据源-->
@@ -38,9 +38,9 @@
         <property name="typeAliasesPackage" value="com.test.pojo"/>
         <!--设置映射文件的路径，只有映射文件的包和mapper接口的包不一致时需要设置-->
         <!--<property name="mapperLocations" value="classpath:mappers/*.xml"/>-->
-    </bean>
+    </com.baima.bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <com.baima.bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.test.mapper"/>
-     </bean>
+     </com.baima.bean>
 </beans>

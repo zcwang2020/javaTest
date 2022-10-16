@@ -4,10 +4,5 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <com.baima.bean id="user" class="com.spring.pojo.User" init-method="initMethod" destroy-method="destroyMethod">
-        <property name="id" value="1"/>
-    </com.baima.bean>
-
-    <!-- bean的后置处理器要放入IOC容器才能生效 -->
-    <com.baima.bean id="beanProgress" class="com.spring.progress.MyBeanProcessor"></com.baima.bean>
+    <context:component-scan base-package="com.baima.bean,com.baima.config"/>
 </beans>

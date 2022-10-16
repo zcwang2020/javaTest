@@ -29,7 +29,7 @@ public class SpringTest {
 
     /**
      * org.springframework.beans.factory.NoUniqueBeanDefinitionException:
-     * No qualifying bean of type 'com.spring.pojo.User' available: expected single matching bean but found 2: user,user2
+     * No qualifying com.baima.bean of type 'com.spring.pojo.User' available: expected single matching com.baima.bean but found 2: user,user2
      * 同一个类有两个bean，Id，将类设置为单例
      */
     @Test
@@ -40,12 +40,12 @@ public class SpringTest {
     }
 
     /**
-     * org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'User' available,没有这个类
+     * org.springframework.beans.factory.NoSuchBeanDefinitionException: No com.baima.bean named 'User' available,没有这个类
      */
     @Test
     public void getBeanByNameAndClass() {
         ApplicationContext ioc = new ClassPathXmlApplicationContext("applicationContext.xml");
-        // org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'User' available,没有这个类
+        // org.springframework.beans.factory.NoSuchBeanDefinitionException: No com.baima.bean named 'User' available,没有这个类
         // User user = ioc.getBean("User", User.class);
         User user = ioc.getBean("user", User.class);
         System.out.println(user);

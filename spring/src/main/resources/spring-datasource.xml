@@ -6,18 +6,18 @@
 
     <context:property-placeholder location="jdbc.properties"/>
 
-    <!--<bean id="datasource1" class="com.alibaba.druid.pool.DruidDataSource">
+    <!--<com.baima.bean id="datasource1" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
                   value="jdbc:mysql://localhost:13306/mysql57?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"/>
         <property name="username" value="root"/>
         <property name="password" value="abc123"/>
-    </bean>-->
+    </com.baima.bean>-->
 
-    <bean id="datasource2" class="com.alibaba.druid.pool.DruidDataSource">
+    <com.baima.bean id="datasource2" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-    </bean>
+    </com.baima.bean>
 </beans>

@@ -6,7 +6,7 @@
 
     <context:component-scan base-package="com.spring"/>
 
-    <bean id="service" class="com.spring.service.impl.UserServiceImpl"/>
+    <com.baima.bean id="service" class="com.spring.service.impl.UserServiceImpl"/>
 
-<!--    <bean id="userDao" class="com.spring.dao.impl.UserDaoImpl"/>-->
+<!--    <com.baima.bean id="userDao" class="com.spring.dao.impl.UserDaoImpl"/>-->
 </beans>

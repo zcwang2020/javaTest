@@ -16,12 +16,12 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 public class MyBeanProcessor implements BeanPostProcessor{
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("before init bean, name = " + beanName);
+        System.out.println("before init com.baima.bean, name = " + beanName);
         return null;
     }
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("after init bean, name = " + beanName);
+        System.out.println("after init com.baima.bean, name = " + beanName);
         return bean;
     }
 }

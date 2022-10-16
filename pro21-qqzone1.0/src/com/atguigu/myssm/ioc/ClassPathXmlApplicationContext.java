@@ -43,7 +43,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
             Document document = documentBuilder.parse(inputStream);
 
             //4.获取所有的bean节点
-            NodeList beanNodeList = document.getElementsByTagName("bean");
+            NodeList beanNodeList = document.getElementsByTagName("com.baima.bean");
             for(int i = 0 ; i<beanNodeList.getLength() ; i++){
                 Node beanNode = beanNodeList.item(i);
                 if(beanNode.getNodeType() == Node.ELEMENT_NODE){

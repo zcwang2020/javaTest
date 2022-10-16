@@ -3,5 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <com.baima.bean class="com.spring.factory.UserFactoryBean"/>
+    <bean id="tom" class="com.baima.bean.Cat"/>
+
+    <bean class="com.baima.bean.Dog"/>
 </beans>
