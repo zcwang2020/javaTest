@@ -4,6 +4,7 @@ import com.test.Mapper.BookMapper;
 import com.test.pojo.Book;
 import com.test.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Cacheable(value = "space", key = "#id")
     public Book getById(Integer id) {
         return bookMapper.selectById(id);
     }
