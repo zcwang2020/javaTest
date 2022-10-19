@@ -1,0 +1,7 @@
+config:
+  cat:
+    name: "图多盖洛"
+    age: 20
+  mouse:
+    name: "泰菲"
+    age: 1
