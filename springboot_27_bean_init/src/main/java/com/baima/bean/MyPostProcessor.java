@@ -6,6 +6,7 @@
  */
 package com.baima.bean;
 
+import com.baima.service.impl.BookServiceImpl4;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -21,7 +22,7 @@ import com.baima.service.impl.BookServiceImpl2;
  */
 public class MyPostProcessor implements BeanDefinitionRegistryPostProcessor {
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(BookServiceImpl2.class).getBeanDefinition();
+        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(BookServiceImpl4.class).getBeanDefinition();
         beanDefinitionRegistry.registerBeanDefinition("bookService", beanDefinition);
     }
 

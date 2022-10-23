@@ -1,13 +1,18 @@
 package com.example.bean;
 
+import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @Author wzc
  * @Date 2022/10/18
  */
 @EnableConfigurationProperties(MyProperties.class)
-public class MyAutoConfiguration {
+@ConditionalOnClass(name = "com.alibaba.druid.pool.DruidDataSource")
+public class MyAutoConfiguration implements ApplicationContextAware {
 
     private Cat cat;
 
@@ -28,5 +33,10 @@ public class MyAutoConfiguration {
     public void play() {
         System.out
             .println(cat.getAge() + "岁的" + cat.getName() + "和" + mouse.getAge() + "岁的" + mouse.getName() + "打起来了");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
     }
 }
