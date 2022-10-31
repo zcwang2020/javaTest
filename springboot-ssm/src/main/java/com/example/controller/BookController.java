@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Book;
 import com.example.service.BookService;
-import com.example.service.IpCountService;
 
 
 @RestController
@@ -24,8 +23,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private IpCountService ipCountService;
+    /*@Autowired
+    private IpCountService ipCountService;*/
 
     @PostMapping
     public Result save(@RequestBody Book book) {
@@ -55,7 +54,7 @@ public class BookController {
 
     @GetMapping
     public Result getAll() {
-        ipCountService.count();
+        // ipCountService.count();
         List<Book> bookList = bookService.getAll();
         Integer code = bookList != null ? Code.GET_OK : Code.GET_ERR;
         String msg = bookList != null ? "" : "数据查询失败，请重试！";
