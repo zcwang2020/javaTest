@@ -1,11 +1,19 @@
 spring:
   datasource:
     druid:
-     driver-class-name: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql:///dev?useUnicode=true&characterEncoding=UTF-8
+     driver-class-name: com.mysql.jdbc.Driver
+#     台式：
+#     url: jdbc:mysql:///dev?useUnicode=true&characterEncoding=UTF-8
+#     笔记本：
+     url: jdbc:mysql://localhost:13306/mysql57?useUnicode=true&characterEncoding=utf-8
      username: root
      password: abc123
 mybatis-plus:
   global-config:
     db-config:
       table-prefix: "tbl_"
+tools:
+  ip:
+    cycle: 12
+    cycleReset: true
+    model: simple
