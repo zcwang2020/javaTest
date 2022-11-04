@@ -16,4 +16,4 @@ tools:
   ip:
     cycle: 12
     cycleReset: true
-    model: simple
+    model: detail

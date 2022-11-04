@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "tools.ip",
+      "type": "com.example.properties.IpProperties",
+      "sourceType": "com.example.properties.IpProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "tools.ip.cycle",
+      "type": "java.lang.Integer",
+      "description": "周期循环时间",
+      "sourceType": "com.example.properties.IpProperties",
+      "defaultValue": 5
+    },
+    {
+      "name": "tools.ip.cycle-reset",
+      "type": "java.lang.Boolean",
+      "description": "周期循环清空",
+      "sourceType": "com.example.properties.IpProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "tools.ip.model",
+      "type": "java.lang.String",
+      "description": "展示类型",
+      "sourceType": "com.example.properties.IpProperties"
+    }
+  ],
+  "hints": []
+}
