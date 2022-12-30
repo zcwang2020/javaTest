@@ -483,6 +483,28 @@ public class DateUtils {
         return cal.getTime();
     }
 
+    /**
+     * 获取今天特定时间的时间戳
+     * @param timeStr
+     * @return
+     */
+    public static Long getToDaySpecificTime(String timeStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        String dateStr = sdf.format(new Date());
+        String fullStr = dateStr + " " + timeStr;
+        Long time = parseStringToLong(fullStr, DATE_TIME_FORMAT);
+        return time;
+    }
+
+    /**
+     * 获取明天特定时间的时间戳
+     * @param timeStr
+     * @return
+     */
+    public static Long getTomorrowSpecificTime(String timeStr) {
+        return getToDaySpecificTime(timeStr) + TIME_OF_DAY;
+    }
+
     public static void main(String[] args) {
         System.out.println(parseStringToLong("20170331110100", DATETIMEFORMAT));
     }

@@ -23,10 +23,36 @@ public class DateTest {
 
     @Test
     public void testDate() throws ParseException {
+
+        Boolean aBoolean = get();
+        System.out.println("aBoolean = " + aBoolean);
+
         String dateStr = "Thu Dec 09 00:00:00 CST 2021";
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         Date date = sdf.parse(dateStr);
         String s = DateUtils.parseDateToString(date, DateUtils.DATEFORMAT);
         System.out.println(Long.valueOf(s));
+
+        System.out.println("DateUtils.getTomorrowSpecificTime(\"9\") = " + DateUtils.getTomorrowSpecificTime("00:00:00"));
+
+
     }
+    public static Boolean get() {
+        int aa = 11;
+        switch (aa) {
+            case 11:
+                int bb = 2;
+                switch (bb) {
+                    case 22:
+                        return false;
+                    case 25:
+                        return true;
+                }
+
+                return false;
+            default:
+                return false;
+        }
+    }
+
 }

@@ -1,11 +1,13 @@
 package cn.itcast.order.service;
 
-import cn.itcast.feign.clients.UserClient;
-import cn.itcast.feign.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import cn.itcast.order.mapper.OrderMapper;
 import cn.itcast.order.pojo.Order;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.itcast.order.pojo.User;
 
 @Service
 public class OrderService {
@@ -14,15 +16,25 @@ public class OrderService {
     private OrderMapper orderMapper;
 
     @Autowired
-    private UserClient userClient;
+    private RestTemplate restTemplate;
+
+    // @Autowired
+    // private UserClient userClient;
 
     public Order queryOrderById(Long orderId) {
         // 1.查询订单
         Order order = orderMapper.findById(orderId);
-        // 2.用Feign远程调用
-        User user = userClient.findById(order.getUserId());
-        // 3.封装user到Order
+        // 原生远程调用
+        // String url = "http://localhost:8081/user/" + order.getUserId();
+        // 使用Eureka项目名方式调用
+        String url = "http://userservice/user/" + order.getUserId();
+        // 2.使用restTemplate查询user信息
+        User user = restTemplate.getForObject(url, User.class);
         order.setUser(user);
+        // // 2.用Feign远程调用
+        // User user = userClient.findById(order.getUserId());
+        // // 3.封装user到Order
+        // order.setUser(user);
         // 4.返回
         return order;
     }
