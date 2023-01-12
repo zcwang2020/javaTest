@@ -1,6 +1,8 @@
 server:
   port: 8081
 spring:
+  application:
+    name: user-service
   datasource:
     url: jdbc:mysql://localhost:3306/cloud_user?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
@@ -21,9 +23,9 @@ logging:
     cn.itcast: debug
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
-eureka:
-  client:
-    service-url:  # eureka的地址信息
-      defaultZone: http://127.0.0.1:10010/eureka
+#eureka:
+#  client:
+#    service-url:  # eureka的地址信息
+#      defaultZone: http://127.0.0.1:10010/eureka
 #pattern:
 #  name: 本地环境local

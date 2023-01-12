@@ -27,7 +27,7 @@ public class OrderService {
         // 原生远程调用
         // String url = "http://localhost:8081/user/" + order.getUserId();
         // 使用Eureka项目名方式调用
-        String url = "http://userservice/user/" + order.getUserId();
+        String url = "http://user-service/user/" + order.getUserId();
         // 2.使用restTemplate查询user信息
         User user = restTemplate.getForObject(url, User.class);
         order.setUser(user);
