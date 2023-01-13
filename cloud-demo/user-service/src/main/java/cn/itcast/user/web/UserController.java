@@ -1,12 +1,18 @@
 package cn.itcast.user.web;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 
 import cn.itcast.user.pojo.User;
 import cn.itcast.user.service.UserService;
@@ -21,8 +27,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // @Value("${pattern.dateformat}")
-    // private String dateformat;
+    @NacosValue("${aaa}")
+    private String dateformat;
 
     // @Autowired
     // private PatternProperties properties;
@@ -32,10 +38,16 @@ public class UserController {
     //     return properties;
     // }
     //
-    // @GetMapping("now")
-    // public String now(){
-    //     return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
-    // }
+
+    @GetMapping("/config")
+    public String getConfig(){
+        return dateformat;
+    }
+
+    /*@GetMapping("now")
+    public String now(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
+    }*/
 
     /**
      * 路径： /user/110

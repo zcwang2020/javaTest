@@ -17,7 +17,7 @@ spring:
         port: 8080
         # dev环境
         namespace: 8b73285b-e005-436a-bbd3-6060e2fc2958
-#        ephemeral: false # 是否是临时实例
+        ephemeral: false # 是否是临时实例
 mybatis:
   type-aliases-package: cn.itcast.user.pojo
   configuration:
