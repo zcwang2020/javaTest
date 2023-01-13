@@ -15,8 +15,8 @@ spring:
         cluster-name: HZ
         ip: 192.168.2.231
         port: 8080
-#      discovery:
-#        namespace: 4d6ce343-9e1b-44df-a90f-2cf2b6b3d177 # dev环境
+        # dev环境
+        namespace: 8b73285b-e005-436a-bbd3-6060e2fc2958
 #        ephemeral: false # 是否是临时实例
 mybatis:
   type-aliases-package: cn.itcast.user.pojo
