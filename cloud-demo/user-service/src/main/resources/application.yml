@@ -25,5 +25,5 @@ logging:
 #  client:
 #    service-url:  # eureka的地址信息
 #      defaultZone: http://127.0.0.1:10010/eureka
-#pattern:
-#  name: 本地环境local
+pattern:
+  name: 本地环境local

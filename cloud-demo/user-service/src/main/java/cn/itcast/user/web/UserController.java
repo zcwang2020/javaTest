@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.nacos.api.config.annotation.NacosValue;
-
+import cn.itcast.user.config.PatternProperties;
 import cn.itcast.user.pojo.User;
 import cn.itcast.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,33 +21,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/user")
-@RefreshScope
+// @RefreshScope
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @NacosValue("${aaa:}")
-    private String dateformat;
+    // @Value("${pattern.dateformat}")
+    // private String dateformat;
 
-    // @Autowired
-    // private PatternProperties properties;
-    //
-    // @GetMapping("prop")
-    // public PatternProperties properties(){
-    //     return properties;
-    // }
-    //
+    @Autowired
+    private PatternProperties properties;
 
-    @GetMapping("/config")
-    public String getConfig(){
-        return dateformat;
+    @GetMapping("/prop")
+    public PatternProperties properties(){
+        return properties;
     }
+
+
+    /*@GetMapping("/config")
+    public String getConfig(){
+        return "aaa__" + dateformat;
+    }*/
 
     /*@GetMapping("now")
     public String now(){
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateformat));
     }*/
+    @GetMapping("now")
+    public String now(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
+    }
 
     /**
      * 路径： /user/110
