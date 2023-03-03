@@ -7,7 +7,10 @@
   <groupId>com.itheima</groupId>
   <artifactId>springmvc_08_ssm</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <modules>
+        <module>dockerJava</module>
+    </modules>
+    <packaging>pom</packaging>
 
   <dependencies>
     <dependency>

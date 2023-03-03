@@ -1,0 +1,41 @@
+<!--
+ * @Author: 张雪峰 xfzhang@tmindtech.com
+ * @Date: 2023-01-31 14:12:09
+ * @LastEditors: 张雪峰 xfzhang@tmindtech.com
+ * @LastEditTime: 2023-01-31 14:42:10
+ * @FilePath: /test/index.html
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="onRequest()">发起请求</button>
+</body>
+<script>
+  function onRequest() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', 'http://localhost:8081/signStr?userName=1111');
+    xhr.send();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log('--------', xhr.responseText)
+        console.log('----xhr----', xhr)
+        alert(xhr.responseText);
+      } else {
+        // window.open('http://baidu.com')
+      }
+    };
+  }
+</script>
+
+</html>
