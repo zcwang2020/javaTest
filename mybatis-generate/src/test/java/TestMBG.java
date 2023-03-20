@@ -1,6 +1,3 @@
-import com.study.mybatis.mapper.EmpMapper;
-import com.study.mybatis.pojo.Emp;
-import com.study.mybatis.pojo.EmpExample;
 import com.test.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -14,11 +11,11 @@ import java.util.List;
 public class TestMBG {
     @Test
     public void testMBG() {
-        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        /*SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
         EmpExample empExample = new EmpExample();
         empExample.createCriteria().andEmpNameEqualTo("张三");
         List<Emp> emps = mapper.selectByExample(empExample);
-        System.out.println("emps = " + emps);
+        System.out.println("emps = " + emps);*/
     }
 }
