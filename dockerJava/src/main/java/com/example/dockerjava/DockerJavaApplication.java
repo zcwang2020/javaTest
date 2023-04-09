@@ -7,6 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @MapperScan("com.example.dockerjava.mapper")
+
 public class DockerJavaApplication {
 
     public static void main(String[] args) {
