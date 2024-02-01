@@ -12,10 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
@@ -553,5 +550,44 @@ public class DateUtils {
         LocalDate localDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
         LocalDate firstDayOfMonth = localDate.with(TemporalAdjusters.lastDayOfMonth());
         return firstDayOfMonth.getDayOfMonth();
+    }
+
+    /**
+     * 获取某个时间点的有效期
+     * @param now
+     * @return
+     */
+    public static long getEffectiveTime(long now) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(now));
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        // Calendar 的 month 从 0 开始，也就是全年 12 个月由 0 ~ 11 进行表示
+        if (month < Calendar.JULY) {
+            // 月份小于7时,有效期为次年6月30日24：00，亦即次年7月1日0:00
+            calendar.set(year + 1, Calendar.JULY, 1, 0, 0, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTimeInMillis();
+        } else {
+            // 月份大于等于7时,有效期为次年12月31日24:00过期，亦即后两年1月1日0:00
+            calendar.set(year + 2, Calendar.JANUARY, 1, 0, 0, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTimeInMillis();
+        }
+    }
+
+    // 获得某天最小时间 2020-02-17 00:00:00
+    public static Date getStartOfDay(Date date) {
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+        LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+        return Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static void main(String[] args) {
+        long effectiveTime = getEffectiveTime(1684982988000L);
+        System.out.println("effectiveTime = " + effectiveTime);
+        String s = parseLongToString(effectiveTime, DATE_FORMAT);
+        System.out.println("s = " + s);
+
     }
 }
