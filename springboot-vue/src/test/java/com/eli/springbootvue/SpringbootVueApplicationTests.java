@@ -5,10 +5,12 @@ import com.eli.springbootvue.data.DataUploadDTO;
 import com.eli.springbootvue.data.TuiBeiDataTO;
 import com.eli.springbootvue.util.DateUtils;
 import com.eli.springbootvue.util.TuiBeiMd5Utils;
+import meta.test.ArrayAlg;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -70,5 +72,20 @@ class SpringbootVueApplicationTests {
 
         int lastDayOfMonth = DateUtils.getLastDayOfMonth(1675224000000L);
         System.out.println("lastDayOfMonth = " + lastDayOfMonth);
+    }
+
+    @Test
+    void testMyPair() {
+        LocalDate[] birthdays = {
+                LocalDate.of(1906, 12, 9),
+                LocalDate.of(1815, 12, 10),
+                LocalDate.of(1903, 12, 3),
+                LocalDate.of(1910, 6, 22),
+        };
+        ArrayAlg.MyPair<LocalDate> minmax = ArrayAlg.minmax(birthdays);
+        System.out.println("minmax = " + minmax);
+        // 打印最大值和最小值
+        System.out.println("minmax.getFirst() = " + minmax.getFirst());
+        System.out.println("minmax.getSecond() = " + minmax.getSecond());
     }
 }
