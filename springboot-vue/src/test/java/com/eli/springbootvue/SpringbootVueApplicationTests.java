@@ -88,4 +88,10 @@ class SpringbootVueApplicationTests {
         System.out.println("minmax.getFirst() = " + minmax.getFirst());
         System.out.println("minmax.getSecond() = " + minmax.getSecond());
     }
+
+    @Test
+    void testA() {
+        int i = DateUtils.monthInterval("2023-08", "2024-01");
+        System.out.println("i = " + i);
+    }
 }
