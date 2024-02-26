@@ -1,0 +1,347 @@
+package com.eli.springbootvue.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.eli.springbootvue.data.AjaxResult;
+import com.eli.springbootvue.util.DateUtils;
+import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.filters.Canvas;
+import net.coobird.thumbnailator.geometry.Positions;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @Author: tmind
+ * @Date: 2024/2/26 14:29
+ * @Description:
+ */
+@RestController
+@Slf4j
+@RequestMapping("/test")
+public class TestController {
+    @GetMapping("/pic")
+    public AjaxResult pushChannelPic() {
+        String jsonPicUrlList = "[\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\"\n" +
+                "]";
+        List<String> picUrlList = JSON.parseArray(jsonPicUrlList, String.class);
+        log.info("[op:getAlipayFileUrl] 图片数量:{}", picUrlList.size());
+        List<String> alipayUrl = new ArrayList<>();
+        List<File> alipayFiles = new ArrayList<>();
+        for (String i : picUrlList) {
+            String fileName = i.substring(i.lastIndexOf("."));
+            URL url;
+            File file = null;
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            try {
+                file = File.createTempFile(DateUtils.getCurrentTime() + "net_url", fileName);
+                url = new URL(i);
+                log.info("[op:getAlipayFileUrl] imageUrl:{}", i);
+                inputStream = url.openStream();
+                outputStream = new FileOutputStream(file);
+
+                int bytesRead = 0;
+                byte[] buffer = new byte[8192];
+                while ((bytesRead = inputStream.read(buffer, 0, 8192)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                log.error("[op:getAlipayFileUrl] error:", e);
+            } finally {
+                try {
+                    if (null != outputStream) {
+                        outputStream.close();
+                    }
+                    if (null != inputStream) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            alipayFiles.add(file);
+        }
+
+        File mergeImg;
+        File newFile;
+        try {
+            mergeImg = mergeImg(alipayFiles);
+            newFile = newResizeImage(mergeImg, mergeImg.getName(), 2000, 1f, 750, 9999, true);
+            List<File> files = cutImage(newFile, 3000, 10);
+            System.out.println("files = " + files);
+            // 将一张图片分割多个图片
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String filePath = "D:\\";
+        String fileName = "test.png";
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            inputStream = new FileInputStream(newFile);
+            outputStream = new FileOutputStream(filePath + fileName);
+
+            byte[] buffer = new byte[8192];
+            int bytesRead = 0;
+            while ((bytesRead = inputStream.read(buffer, 0, 8192)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            log.error("[op:getAlipayFileUrl] error:", e);
+        } finally {
+            try {
+                if (null != outputStream) {
+                    outputStream.close();
+                }
+                if (null != inputStream) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return AjaxResult.ofSuccess();
+    }
+
+    /**
+     * 将N个图片纵向合并为一个图片
+     */
+    private File mergeImg(List<File> fileList) throws IOException {
+        // Load n images into an array
+        BufferedImage[] images = new BufferedImage[fileList.size()];
+        for (int i = 0; i < fileList.size(); i++) {
+            images[i] = ImageIO.read(fileList.get(i));
+        }
+
+        // Create a new BufferedImage object with a width equal to the sum of the widths of the n images,
+        // and a height equal to the height of any one of the images
+        BufferedImage joinedImage = new BufferedImage(images[0].getWidth(), images[0].getHeight() * fileList.size(),
+                BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the n images onto the new BufferedImage object
+        Graphics2D g2d = joinedImage.createGraphics();
+        int y = 0;
+        for (BufferedImage image: images) {
+            g2d.drawImage(image, 0, y, null);
+            y += image.getHeight();
+        }
+        g2d.dispose();
+
+        // Save the joined image to a file
+        File output = new File("joinedImage.png");
+        ImageIO.write(joinedImage, "png", output);
+        return output;
+    }
+
+    /**
+     * 根据指定大小和指定精度压缩图片
+     *
+     * @param srcFile      原图
+     * @param fileName     名称
+     * @param desFileSize  指定图片大小，单位kb（压缩到多大以内）
+     * @param accuracy     精度，递归压缩的比率，建议小于0.9
+     * @param desMaxWidth  目标最大宽度
+     * @param desMaxHeight 目标最大高度
+     * @return 目标文件
+     */
+    public static File newResizeImage(File srcFile, String fileName, long desFileSize, double accuracy, int desMaxWidth, int desMaxHeight, boolean keepAspectRatio) {
+        File newFile;
+        try {
+            long srcFileSize = srcFile.length();
+            log.info("源图片大小：" + srcFileSize / 1024 + "kb");
+            //获取图片信息
+            BufferedImage bim = ImageIO.read(srcFile);
+            int srcWidth = bim.getWidth();
+            int srcHeight = bim.getHeight();
+            log.info("源图片高：{}，宽：{}", srcHeight, srcWidth);
+            //先转换成jpg
+            Thumbnails.Builder<File> builder = Thumbnails.of(srcFile);
+
+            // 指定大小
+            builder.size(desMaxWidth, desMaxHeight).keepAspectRatio(keepAspectRatio);
+
+            // 写入到内存
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
+            builder.toOutputStream(bos);
+
+            // 递归压缩，直到目标文件大小小于desFileSize
+            byte[] bytes = compressPicCycle(bos.toByteArray(), desFileSize, accuracy);
+            //压缩不到指定大小就舍弃
+            if (bytes == null) {
+                return null;
+            }
+            // 输出到文件
+            newFile = File.createTempFile(DateUtils.getCurrentTime() + "net_url2", fileName.replaceAll("\\..*", "") + ".jpg");
+            FileOutputStream fos = new FileOutputStream(newFile);
+            fos.write(bytes);
+            fos.close();
+
+            log.info("目标图片大小" + newFile.length() / 1024 + "kb");
+            BufferedImage temp = ImageIO.read(newFile);
+            log.info("目标图片高：{},宽：{}", temp.getHeight(), temp.getWidth());
+            log.info("图片压缩完成！");
+        } catch (Exception e) {
+            log.error("[op:newResizeImage] error:", e);
+            return null;
+        }
+        return newFile;
+    }
+
+    private static byte[] compressPicCycle(byte[] bytes, long desFileSize, double accuracy) throws IOException {
+        // File srcFileJPG = new File(desPath);
+        long srcFileSizeJPG = bytes.length;
+        log.info("压缩前大小：" + srcFileSizeJPG);
+        log.info("压缩率" + accuracy);
+        //压缩率小于0.1则舍弃
+        if (accuracy <= 0.1) {
+            return null;
+        }
+        // 计算宽高
+        BufferedImage bim = ImageIO.read(new ByteArrayInputStream(bytes));
+        int srcWidth = bim.getWidth();
+        int srcHeight = bim.getHeight();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
+        Thumbnails.of(new ByteArrayInputStream(bytes))
+                .addFilter(new Canvas(srcWidth, srcHeight, Positions.CENTER, Color.WHITE))
+                .size(srcWidth, srcHeight)
+                .outputQuality(accuracy)
+                .outputFormat("JPG")
+                .toOutputStream(bos);
+        log.info("压缩后大小：" + bos.toByteArray().length);
+        // 2、判断大小，如果小于等于指定大小，返回结果，如果大于指定大小，继续压缩
+        if (bos.toByteArray().length <= desFileSize * 1024) {
+            return bos.toByteArray();
+        }
+        return compressPicCycle(bytes, desFileSize, accuracy - 0.2f);
+    }
+
+    /**
+     * 将一张图片分割多个图片
+     * @param srcFile           原图
+     * @param desMaxHeight      目标最大高度
+     * @param maxUploadImgNum   最大上传图片数量
+     */
+    public static List<File> cutImage(File srcFile, int desMaxHeight, int maxUploadImgNum) {
+        // 切割后的图片保存路径
+        String filePath = "D:\\cut\\";
+        List<File> outputImages = new ArrayList<>();
+
+        try {
+            // 读取原始图片
+            BufferedImage originalImage = ImageIO.read(srcFile);
+            // 图片总高度
+            int sliceHeight = originalImage.getHeight();
+            // 计算每切片的数量
+            int sliceCount = getSliceCount(sliceHeight, desMaxHeight, maxUploadImgNum);
+            log.info("分割图片总高度:{}, 分割图片个数:{}", sliceHeight, sliceCount);
+            // 循环切割图片并保存
+            for (int i = 0; i < sliceCount; i++) {
+                int x = 0;
+                int y = i * desMaxHeight;
+                int width = originalImage.getWidth();
+                int height = desMaxHeight;
+
+                if (i + 1 == sliceCount) {
+                    height = sliceHeight - y;
+                }
+                log.info("分割图片第:{}片,宽度:{}, 高度:{}, ", i, width, height);
+                // 绘制切割区域
+                Rectangle rectangle = new Rectangle(x, y, width, height);
+                Graphics2D graphics2D = originalImage.createGraphics();
+                graphics2D.draw(rectangle);
+
+                // 保存切割后的图片
+                File outputImage = new File(filePath, "slice_" + i + "_" + (Strings.isBlank(getFileSuffix(srcFile.getName())) ? "jpg" : getFileSuffix(srcFile.getName())));
+                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+                ImageWriteParam param = writer.getDefaultWriteParam();
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(1.0f);
+
+                try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(new FileOutputStream(outputImage))) {
+                    writer.setOutput(imageOutputStream);
+                    writer.write(null, new javax.imageio.IIOImage(originalImage, null, null), param);
+                }
+
+                outputImages.add(outputImage);
+            }
+
+            System.out.println("图片切割完成！");
+
+            return outputImages;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static int getSliceCount(int height, int desMaxHeight, int maxUploadImgNum) {
+        if (height <= desMaxHeight) {
+            return 1;
+        }
+        int sliceCount = height % desMaxHeight == 0 ? height / desMaxHeight : height / desMaxHeight + 1 ;
+        return Math.min(sliceCount, maxUploadImgNum);
+    }
+
+    private static String getFileSuffix(String fileName) {
+        // 查找最后一个"."的位置
+        int dotIndex = fileName.lastIndexOf(".");
+
+        // 如果找到了"."
+        if (dotIndex!= -1) {
+            // 返回从"."之后的所有字符，即文件名后缀
+            return fileName.substring(dotIndex);
+        } else {
+            // 如果没有找到"."
+            return "";
+        }
+    }
+
+}
