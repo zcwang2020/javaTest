@@ -590,4 +590,19 @@ public class DateUtils {
         System.out.println("s = " + s);
 
     }
+
+    public static int monthInterval(String date1, String date2) {
+        int result = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        try {
+            c1.setTime(sdf.parse(date1));
+            c2.setTime(sdf.parse(date2));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        result = c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH) + (c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR)) * 12;
+        return result == 0 ? 1 : Math.abs(result);
+    }
 }
