@@ -9,20 +9,16 @@ import net.coobird.thumbnailator.filters.Canvas;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,36 +33,48 @@ public class TestController {
     @GetMapping("/pic")
     public AjaxResult pushChannelPic() {
         String jsonPicUrlList = "[\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
-                "    \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\"\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/168913221735b77f.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322170d9d55.jpeg\",\n" +
+                "  \"https://yanxuan.nosdn.127.net/static-union/16891322178ae529.jpeg\"\n" +
                 "]";
         List<String> picUrlList = JSON.parseArray(jsonPicUrlList, String.class);
         log.info("[op:getAlipayFileUrl] 图片数量:{}", picUrlList.size());
@@ -113,7 +121,7 @@ public class TestController {
         try {
             mergeImg = mergeImg(alipayFiles);
             newFile = newResizeImage(mergeImg, mergeImg.getName(), 2000, 1f, 750, 9999, true);
-            List<File> files = cutImage(newFile, 3000, 10);
+            List<File> files = cutImages(newFile, 3000, 3);
             System.out.println("files = " + files);
             // 将一张图片分割多个图片
         } catch (IOException e) {
@@ -153,7 +161,7 @@ public class TestController {
     /**
      * 将N个图片纵向合并为一个图片
      */
-    private File mergeImg(List<File> fileList) throws IOException {
+    private static File mergeImg(List<File> fileList) throws IOException {
         // Load n images into an array
         BufferedImage[] images = new BufferedImage[fileList.size()];
         for (int i = 0; i < fileList.size(); i++) {
@@ -203,10 +211,20 @@ public class TestController {
             log.info("源图片高：{}，宽：{}", srcHeight, srcWidth);
             //先转换成jpg
             Thumbnails.Builder<File> builder = Thumbnails.of(srcFile);
+            if (srcWidth < desMaxWidth) {
+                // 宽度小于目标宽度，图片不会放大，先将宽度放大到目标宽度，再缩小
+                double v = (double) desMaxWidth / srcWidth + 1;
+                File tempFile = new File("temp.jpg");
+                builder.scale(v).toFile(tempFile);
+                log.debug("放大图片倍数v:{}", v);
+                BufferedImage temp = ImageIO.read(tempFile);
+                log.debug("放大后目标图片高：{},宽：{}", temp.getHeight(), temp.getWidth());
+                builder = Thumbnails.of(tempFile);
+                srcHeight = temp.getHeight();
+            }
 
             // 指定大小
-            builder.size(desMaxWidth, desMaxHeight).keepAspectRatio(keepAspectRatio);
-
+            builder.size(desMaxWidth, srcHeight).keepAspectRatio(keepAspectRatio);
             // 写入到内存
             ByteArrayOutputStream bos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
             builder.toOutputStream(bos);
@@ -262,66 +280,6 @@ public class TestController {
         return compressPicCycle(bytes, desFileSize, accuracy - 0.2f);
     }
 
-    /**
-     * 将一张图片分割多个图片
-     * @param srcFile           原图
-     * @param desMaxHeight      目标最大高度
-     * @param maxUploadImgNum   最大上传图片数量
-     */
-    public static List<File> cutImage(File srcFile, int desMaxHeight, int maxUploadImgNum) {
-        // 切割后的图片保存路径
-        String filePath = "D:\\cut\\";
-        List<File> outputImages = new ArrayList<>();
-
-        try {
-            // 读取原始图片
-            BufferedImage originalImage = ImageIO.read(srcFile);
-            // 图片总高度
-            int sliceHeight = originalImage.getHeight();
-            // 计算每切片的数量
-            int sliceCount = getSliceCount(sliceHeight, desMaxHeight, maxUploadImgNum);
-            log.info("分割图片总高度:{}, 分割图片个数:{}", sliceHeight, sliceCount);
-            // 循环切割图片并保存
-            for (int i = 0; i < sliceCount; i++) {
-                int x = 0;
-                int y = i * desMaxHeight;
-                int width = originalImage.getWidth();
-                int height = desMaxHeight;
-
-                if (i + 1 == sliceCount) {
-                    height = sliceHeight - y;
-                }
-                log.info("分割图片第:{}片,宽度:{}, 高度:{}, ", i, width, height);
-                // 绘制切割区域
-                Rectangle rectangle = new Rectangle(x, y, width, height);
-                Graphics2D graphics2D = originalImage.createGraphics();
-                graphics2D.draw(rectangle);
-
-                // 保存切割后的图片
-                File outputImage = new File(filePath, "slice_" + i + "_" + (Strings.isBlank(getFileSuffix(srcFile.getName())) ? "jpg" : getFileSuffix(srcFile.getName())));
-                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
-                ImageWriteParam param = writer.getDefaultWriteParam();
-                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                param.setCompressionQuality(1.0f);
-
-                try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(new FileOutputStream(outputImage))) {
-                    writer.setOutput(imageOutputStream);
-                    writer.write(null, new javax.imageio.IIOImage(originalImage, null, null), param);
-                }
-
-                outputImages.add(outputImage);
-            }
-
-            System.out.println("图片切割完成！");
-
-            return outputImages;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     private static int getSliceCount(int height, int desMaxHeight, int maxUploadImgNum) {
         if (height <= desMaxHeight) {
             return 1;
@@ -344,4 +302,117 @@ public class TestController {
         }
     }
 
+    public static List<File> cutImage(String inputImagePath, int sliceCount, int sliceWidth) {
+        // 切割后的图片保存路径
+        String outputFolderPath = "D:\\cut\\";
+        File sourcePic = new File(inputImagePath);
+        try {
+            BufferedImage pic1 = ImageIO.read(sourcePic);
+            int width = pic1.getWidth();
+            int height = pic1.getHeight();
+            //参数依次为，截取起点的x坐标，y坐标，截取宽度，截取高度
+            BufferedImage pic2 = pic1.getSubimage(0, 0, width / 2, height / 2);
+
+            //将截取的子图另行存储
+            File desImage = new File("D:/cut/subjavaPic.png");
+            ImageIO.write(pic2, "png", desImage);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 将一张图片分割多个图片
+     * @param srcFile           原图
+     * @param desMaxHeight      目标最大高度
+     * @param maxUploadImgNum   最大上传图片数量
+     */
+    public static List<File> cutImages(File srcFile, int desMaxHeight, int maxUploadImgNum) {
+        // 切割后的图片保存路径
+        String filePath = "D:\\cut\\";
+        List<File> outputImages = new ArrayList<>();
+
+        try {
+            // 读取原始图片
+            BufferedImage originalImage = ImageIO.read(srcFile);
+            // 图片总高度
+            int sliceHeight = originalImage.getHeight();
+            // 计算每切片的数量
+            int sliceCount = getSliceCount(sliceHeight, desMaxHeight, maxUploadImgNum);
+            log.info("分割图片总高度:{}, 分割图片个数:{}", sliceHeight, sliceCount);
+            // 循环切割图片并保存
+            for (int i = 0; i < sliceCount; i++) {
+                int x = 0;
+                int y = i * desMaxHeight;
+                int width = originalImage.getWidth();
+                int height = desMaxHeight;
+
+                if (i + 1 == sliceCount) {
+                    height = Math.min(sliceHeight - y, desMaxHeight);
+                }
+                log.info("分割图片第:{}片,宽度:{}, 高度:{}, ", i, width, height);
+                // 绘制切割区域
+
+                //参数依次为，截取起点的x坐标，y坐标，截取宽度，截取高度
+                BufferedImage pic2 = originalImage.getSubimage(x, y, width, height);
+
+                // 保存切割后的图片
+                File outputImage = new File(filePath, "slice_" + i + "_" + (Strings.isBlank(getFileSuffix(srcFile.getName())) ? "jpg" : getFileSuffix(srcFile.getName())));
+
+                //将截取的子图另行存储
+                // File desImage = new File("D:/cut/subjavaPic.png");
+                ImageIO.write(pic2, "png", outputImage);
+                outputImages.add(outputImage);
+            }
+
+            System.out.println("图片切割完成！");
+
+            return outputImages;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void main(String[] args) throws IOException {
+        String inputPath = "D:\\图片测试\\970.jpg";
+        String outputPath = "D:\\cut\\image.png";
+        File mergeImg;
+        File newFile;
+        try {
+            mergeImg = mergeImg(Arrays.asList(new File(inputPath)));
+            //获取图片信息
+            BufferedImage bim = ImageIO.read(mergeImg);
+            int srcHeight = bim.getHeight();
+            newFile = newResizeImage(mergeImg, mergeImg.getName(), 2000, 1f, 750, srcHeight,true);
+            // 保存切割后的图片
+            File outputImage = new File(outputPath);
+            //获取图片信息
+            BufferedImage pic2 = ImageIO.read(newFile);
+            //将截取的子图另行存储
+            ImageIO.write(pic2, "png", outputImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cutImage(String inputPath, String outputPath, int left, int top, int width, int height) throws IOException {
+        // Read the input image
+        BufferedImage inputImage = ImageIO.read(new File(inputPath));
+
+        // Create a new cutted image with transparent background
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the cutted image on the output image
+        Graphics2D graphics = outputImage.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics.drawImage(inputImage, left, top, width, height, null);
+        graphics.dispose();
+
+        // Save the output image
+        ImageIO.write(outputImage, "png", new File(outputPath));
+    }
 }
