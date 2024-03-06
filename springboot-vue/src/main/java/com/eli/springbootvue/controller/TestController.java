@@ -364,6 +364,7 @@ public class TestController {
                 //将截取的子图另行存储
                 // File desImage = new File("D:/cut/subjavaPic.png");
                 ImageIO.write(pic2, "png", outputImage);
+                log.info("[op:cutImages]分割图片第:{}片, 图片大小:{}", i, outputImage.length() / 1024 + "kb");
                 outputImages.add(outputImage);
             }
 
@@ -378,16 +379,21 @@ public class TestController {
     }
 
     public static void main(String[] args) throws IOException {
-        String inputPath = "D:\\图片测试\\970.jpg";
+        String inputPath = "D:\\图片测试";
+        // 读取inputPath下的所有图片
+        File[] fileArrays = new File(inputPath).listFiles();
+        // files 转换为 List
+        List<File> fileList = Arrays.asList(fileArrays);
         String outputPath = "D:\\cut\\image.png";
         File mergeImg;
         File newFile;
         try {
-            mergeImg = mergeImg(Arrays.asList(new File(inputPath)));
+            mergeImg = mergeImg(fileList);
             //获取图片信息
             BufferedImage bim = ImageIO.read(mergeImg);
             int srcHeight = bim.getHeight();
             newFile = newResizeImage(mergeImg, mergeImg.getName(), 2000, 1f, 750, srcHeight,true);
+            List<File> files = cutImages(newFile, 3000, 10);
             // 保存切割后的图片
             File outputImage = new File(outputPath);
             //获取图片信息
@@ -415,4 +421,6 @@ public class TestController {
         // Save the output image
         ImageIO.write(outputImage, "png", new File(outputPath));
     }
+
+
 }

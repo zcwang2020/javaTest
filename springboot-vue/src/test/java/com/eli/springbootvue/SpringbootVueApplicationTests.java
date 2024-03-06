@@ -2,23 +2,22 @@ package com.eli.springbootvue;
 
 import com.alibaba.fastjson.JSON;
 import com.eli.springbootvue.data.CalendarBO;
-import com.eli.springbootvue.data.DataUploadBatchDTO;
-import com.eli.springbootvue.data.DataUploadDTO;
-import com.eli.springbootvue.data.TuiBeiDataTO;
+import com.eli.springbootvue.data.WeekInfoBO;
 import com.eli.springbootvue.util.DateUtils;
-import com.eli.springbootvue.util.TuiBeiMd5Utils;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import meta.test.ArrayAlg;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @SpringBootTest
 class SpringbootVueApplicationTests {
 
@@ -109,8 +108,10 @@ class SpringbootVueApplicationTests {
         /**偶数图片*/
         String evenStr = "[{\"subject\":\"绿色\",\"remark\":\"偶月Day1. 去年酿的青梅酒还没喝完，/n微醺不打烊。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16833413505f8295.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"黄色\",\"remark\":\"偶月Day2. 神医也治不好的起床气，/n会被带有魔力的芝士小饼干治愈。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16833413504479ca.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"蓝色\",\"remark\":\"偶月Day3. 征服美食宇宙的漫漫长路，/n每一餐都应不被辜负。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1683341350ce046c.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"紫色\",\"remark\":\"偶月Day4. 当你的床上躺着一只猫，/n现在的世界只剩柔软。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/168334135029e794.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"蓝色\",\"remark\":\"偶月Day5. 洗过的头发充满清冽的海洋味道，/n就好像今天去了海边。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16722989436cc273.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"红色\",\"remark\":\"偶月Day6. 把生活过得热气腾腾的人，/n最懂藏在红色里的生机与火热。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162fc7aae.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"绿色\",\"remark\":\"偶月Day7. 明前头采的龙井是限量的，/n但不妨多看几眼无限碧绿的春光。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162dbf304.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"黄色\",\"remark\":\"偶月Day8. 不惧怕成为耀眼的中心，/n成为永不熄灭的小小太阳吧。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16734041610034b1.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"紫色\",\"remark\":\"偶月Day9. 如果长时间凝视紫色，/n你会得到整个宇宙的浪漫。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404161bccce8.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"白色\",\"remark\":\"偶月Day10. 无论有多少种颜色，/n都无可比拟白色蕴藏的无限想象。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162dc8157.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"金色\",\"remark\":\"偶月Day11. 如同真金坚不可摧，/n金灿灿的晨光总会如约而至。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16734041626bd4da.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"粉色\",\"remark\":\"偶月Day12. 樱花凋谢了仍会再开，/n关于粉色的浪漫永不落幕。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162dfd3c0.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"蓝色\",\"remark\":\"偶月Day13. 今晚枕着蓝色入睡，/n做一个克莱因蓝般温柔的梦。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16734041624e7ebf.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"棕色\",\"remark\":\"偶月Day14. 木头的纹理，/n是大自然写给人类不会变质的情书。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162adb6c6.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"橙色\",\"remark\":\"偶月Day15. 吃下一口鲜甜水灵的春日滋味，/n生活由此明亮起来。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162007b09.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"红色\",\"remark\":\"偶月Day16. 新的一天以寓意着幸运的红色开场，/n祈愿美好时常发生。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16734041626f60a8.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"绿色\",\"remark\":\"偶月Day17. 为自己种下一片小森林，/n绿意滋长生命蓬勃向上。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1673404162967b9b.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"灰色\",\"remark\":\"偶月Day18. 任世界多么鲜艳，/n灰色仍然保留不过时的高级和低调。\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/167340416223580d.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"天青色\",\"remark\":\"偶月Day19. 一碗甜糯汤圆，/n寄托着天下游子的情思\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1676014310f8735d.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"棕色\",\"remark\":\"偶月Day20. 米食忆江南，/n江南暖人间\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1676014310649977.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"红色\",\"remark\":\"偶月Day21. 清冷淡雅的腊梅香，/n有种似曾相识的熟悉感\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/167601431044b029.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"灰色\",\"remark\":\"偶月Day22. 咸香的蛋黄搭配清新的绿茶，/n每一口都想私藏\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1676014310b957b2.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"靛蓝色\",\"remark\":\"偶月Day23. 印花布上的蓝白剪影，/n让人一眼回到江南水乡\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16760143112746e2.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"白色\",\"remark\":\"偶月Day24. 芝香浓郁一口酥，/n还原旧时好味道\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/167601431138d6e7.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"金黄色\",\"remark\":\"偶月Day25. 圆滚滚的肚子包藏精华，/n是你的抗饿能量包\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/167601430925902e.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"原木色\",\"remark\":\"偶月Day26. 走进这日式慵懒的枕边，/n体验忘记时间的裸睡感\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16760143095cb6a4.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"米白色\",\"remark\":\"偶月Day27. 日式敞口大碗，/n吃面才会更畅快\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1676014309e13e1b.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"青色\",\"remark\":\"偶月Day28. 搭配莫兰迪色，/n随手一拍都是时尚大片\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/1676014309cea4d1.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"焦黄色\",\"remark\":\"偶月Day29. 酥脆的声音总是惹人爱，/n一口伴着海鲜的原香回味无穷\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16760143090228f7.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"粉色\",\"remark\":\"偶月Day30. 小小的身体，/n却能清除一天的污垢\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16760143090c823e.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"棕色\",\"remark\":\"偶月Day31. 轻松一滚，/n让美变得更加简单\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/167601431059b8b5.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null},{\"subject\":\"柠檬黄\",\"remark\":\"偶月Day32. 工作再忙，/n它随时都会温暖你的胃\",\"itemGroup\":null,\"picUrl\":\"https://yanxuan.nosdn.127.net/static-union/16760143104e96eb.jpg\",\"signInIntegral\":1,\"consecutivePoint\":1,\"linkUrl\":null,\"buttonMsg\":null}]";
         List<CalendarBO> evenPicList = JSON.parseArray(evenStr, CalendarBO.class);
+        String testDate = "2022-03-21";
         // 获取指定星期一及一周的日期集合
-        LocalDate now = LocalDate.now();
+        LocalDate now = StringUtils.isBlank(testDate) ? LocalDate.now()
+                : LocalDate.parse(testDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate monday = now.with(DayOfWeek.MONDAY);
         System.out.println("monday = " + monday);
         List<LocalDate> thisWeekList = new ArrayList<>();
@@ -119,46 +120,43 @@ class SpringbootVueApplicationTests {
             thisWeekList.add(localDate);
         }
         System.out.println("thisWeekList = " + thisWeekList);
-        // 遍历collect中的日期的月份并去重
-        List<Integer> thisWeekMonthList = thisWeekList.stream().map(LocalDate::getMonthValue).distinct().collect(Collectors.toList());
-        System.out.println("thisWeekMonthList = " + thisWeekMonthList);
         // 循环thisWeekList将月份当作索引组装calendarBOS中id
         List<CalendarBO> currentCalendarList = new ArrayList<>(thisWeekList.size());
-        // 没有跨月
-        if (thisWeekMonthList.size() == 1) {
-            // 原有逻辑
-            Integer integer = thisWeekMonthList.get(0);
+        for (LocalDate localDate : thisWeekList) {
             List<CalendarBO> calendarBOS;
-            if (0 == integer % 2) {
+            if (0 == localDate.getMonthValue() % 2) {
                 calendarBOS = evenPicList;
             } else {
                 calendarBOS = oddPicList;
             }
-
-            for (LocalDate localDate : thisWeekList) {
-                int dayOfMonth = localDate.getDayOfMonth();
-                CalendarBO calendarBO = calendarBOS.get(dayOfMonth - 1);
-                // 为calendarBO设置id(年+月+日转long)及日期(年-月-日)
-                calendarBO.setId(Long.parseLong(localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"))));
-                calendarBO.setDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                currentCalendarList.add(calendarBO);
-            }
-        } else {
-            for (LocalDate localDate : thisWeekList) {
-                List<CalendarBO> calendarBOS;
-                if (0 == localDate.getDayOfMonth() % 2) {
-                    calendarBOS = evenPicList;
-                } else {
-                    calendarBOS = oddPicList;
-                }
-                int dayOfMonth = localDate.getDayOfMonth();
-                CalendarBO calendarBO = calendarBOS.get(dayOfMonth - 1);
-                // 为calendarBO设置id(年+月+日转long)及日期(年-月-日)
-                calendarBO.setId(Long.parseLong(localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"))));
-                calendarBO.setDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                currentCalendarList.add(calendarBO);
-            }
+            int dayOfMonth = localDate.getDayOfMonth();
+            CalendarBO calendarBO = calendarBOS.get(dayOfMonth - 1);
+            // 为calendarBO设置id(年+月+日转long)及日期(年-月-日)
+            long idFormat = Long.parseLong(localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+            calendarBO.setId(idFormat);
+            log.info("idFormat = {}", idFormat);
+            String dateFormat = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            calendarBO.setDate(dateFormat);
+            currentCalendarList.add(calendarBO);
         }
         System.out.println("currentCalendarList = " + JSON.toJSONString(currentCalendarList));
+        List<CalendarBO> thisWeek = currentCalendarList;
+        List<CalendarBO> calendarBOList = thisWeek.stream().sorted(Comparator.comparing(CalendarBO::getId))
+                .collect(Collectors.toList());
+        List<WeekInfoBO> weekInfoBOList;
+        long currentTime = DateUtils.getCurrentTime();
+        weekInfoBOList = calendarBOList.stream().map(c -> {
+            WeekInfoBO weekInfoBO = new WeekInfoBO();
+            weekInfoBO.setDate(c.getDate());
+            weekInfoBO.setAttendancePoint(c.getSignInIntegral());
+            // 判断是否是当日
+            weekInfoBO.setIsToday(DateUtils.getToDayStr().equals(c.getDate()));
+            return weekInfoBO;
+        }).collect(Collectors.toList());
+        System.out.println("weekInfoBOList = " + JSON.toJSONString(weekInfoBOList));
+    }
+
+    public static void main(String[] args) {
+
     }
 }
