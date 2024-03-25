@@ -4,6 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.eli.springbootvue.data.AjaxResult;
 import com.eli.springbootvue.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import meta.data.OrderData;
+import meta.data.OrderDetailData;
+import meta.data.OrderDetailPriceData;
+import meta.data.OrderUserData;
+import meta.dto.ChannelOrderWaiterData;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.filters.Canvas;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -18,7 +23,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -379,7 +383,7 @@ public class TestController {
     }
 
     public static void main(String[] args) throws IOException {
-        String inputPath = "D:\\图片测试";
+        /*String inputPath = "D:\\图片测试";
         // 读取inputPath下的所有图片
         File[] fileArrays = new File(inputPath).listFiles();
         // files 转换为 List
@@ -402,7 +406,37 @@ public class TestController {
             ImageIO.write(pic2, "png", outputImage);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        // FileAccessTypeEnum fileAccessTypeEnum = FileAccessTypeEnum.valueOf(0);
+        // System.out.println("fileAccessTypeEnum = " + fileAccessTypeEnum);
+
+        String orderWaiterDataListStr = "[{\"c3_id\":null,\"marsked_phone\":\"7877533\",\"c3_name\":null,\"c1_id\":1,\"client_type\":null,\"ds\":\"2024-03-21\",\"c2_name\":null,\"detail_price\":[{\"price\":0.00,\"goodsid\":0,\"skuid\":0,\"count\":0}],\"caid\":\"20086\",\"idfv\":\"testidfv\",\"oaid\":\"10086\",\"channel_name\":\"hz_wyxw_wyxwsq_2000\",\"c2_id\":null,\"c4_id\":null,\"idfa\":\"testidfa\",\"c1_name\":\"合作\",\"order_timestamp\":1711096690074,\"c4_name\":null,\"order_price\":88.99,\"ext_info\":{},\"phone\":\"13979826255\",\"urs\":\"xietao\",\"order_source\":\"1\",\"imei\":\"testimei\",\"order_id\":\"yx_453785914\",\"device\":\"test_case\"},{\"c3_id\":null,\"marsked_phone\":\"7877533\",\"c3_name\":null,\"c1_id\":1,\"client_type\":null,\"ds\":\"2024-03-21\",\"c2_name\":null,\"detail_price\":[{\"price\":0.00,\"goodsid\":0,\"skuid\":0,\"count\":0}],\"caid\":\"20086\",\"idfv\":\"testidfv\",\"oaid\":\"10086\",\"channel_name\":\"hz_wyxw_wyxwsq_2000\",\"c2_id\":null,\"c4_id\":null,\"idfa\":\"testidfa\",\"c1_name\":\"合作\",\"order_timestamp\":1711096690074,\"c4_name\":null,\"order_price\":88.99,\"ext_info\":{},\"phone\":\"13979826255\",\"urs\":\"xietao\",\"order_source\":\"1\",\"imei\":\"testimei\",\"order_id\":\"yx_453785914\",\"device\":\"test_case222222222\"}]";
+        List<ChannelOrderWaiterData> orderWaiterDataList = JSON.parseArray(orderWaiterDataListStr, ChannelOrderWaiterData.class);
+        System.out.println("orderWaiterDataList = " + orderWaiterDataList);
+        orderWaiterDataList.forEach(i -> {
+            OrderData orderData = new OrderData();
+            OrderDetailData orderDetailData = new OrderDetailData();
+            orderDetailData.setOrder_id(Long.valueOf(i.getOrderId().replace("yx_", "")));
+            orderDetailData.setOrder_source("test");
+            orderDetailData.setOrder_price(i.getOrderPrice());
+            orderDetailData.setOrder_timestamp(i.getOrderTimestamp());
+            orderDetailData.setDetail_price(JSON.parseArray(i.getDetailPrice(), OrderDetailPriceData.class));
+
+            OrderUserData orderUserData = new OrderUserData();
+            orderUserData.setUrs(i.getUrs());
+            orderUserData.setPhone(i.getPhone());
+            orderUserData.setMarsked_phone(i.getMarskedPhone());
+            orderUserData.setOaid(i.getOaid());
+            orderUserData.setImei(i.getImei());
+            orderUserData.setIdfa(i.getIdfa());
+            orderUserData.setIdfv(i.getIdfv());
+            orderDetailData.setUser_info(orderUserData);
+            orderDetailData.setExt_info(JSON.parseObject(i.getExt_info()));
+            orderDetailData.setNewsDevice(i.getDevice());
+            orderData.setData(orderDetailData);
+            System.out.println("orderData = " + JSON.toJSONString(orderData));
+        });
     }
 
     public static void cutImage(String inputPath, String outputPath, int left, int top, int width, int height) throws IOException {
